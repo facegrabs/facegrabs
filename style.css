@@ -233,3 +233,8 @@ footer .copy{margin-top:var(--s1);padding-top:var(--s1);border-top:1px solid var
 @media (max-width:600px){footer a{min-height:44px}}
 footer .fc + .fc{margin-left:var(--s4)}
 footer .fc h2{margin-right:var(--s2)}
+
+.stage video.face{aspect-ratio:auto;width:auto;max-width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;filter:none;display:block}
+@media (prefers-color-scheme:dark){.stage video.face{mix-blend-mode:normal;border-radius:var(--r)}}
+.stage:has(video.face){background:transparent;border-color:transparent}
+.cimg:hover .stage:has(video.face){border-color:transparent}

@@ -238,3 +238,7 @@ footer .fc h2{margin-right:var(--s2)}
 @media (prefers-color-scheme:dark){.stage video.face{mix-blend-mode:normal;border-radius:var(--r)}}
 .stage:has(video.face){background:transparent;border-color:transparent}
 .cimg:hover .stage:has(video.face){border-color:transparent}
+/* watch images and clips must never outgrow their stage */
+.stage:has(img.face[src$="-watch.jpg"]),.stage:has(video.face){grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);overflow:hidden}
+.stage img.face[src$="-watch.jpg"],.stage video.face{max-height:100%;min-height:0;height:100%;width:auto;margin:0 auto;object-fit:contain}
+.stage img.face[src$="-watch.jpg"],.stage video.face{aspect-ratio:688/900;width:auto;height:100%;max-width:100%;max-height:100%;justify-self:center;align-self:center}

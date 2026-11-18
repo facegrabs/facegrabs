@@ -12,9 +12,11 @@ var W=454;
 var PALETTES=[[0x35CFEA],[0xFF9632],[0x4BE38A],[0xFF4D4D],[0xFFC93C],[0xB48CFF],[0xFFFFFF],[0x3D7BFF],[0xFF5FA2],[0xB6F23A],[0x2FD6B5],
 [0x3D7BFF,0xFF8A2A],[0x3D7BFF,0xFFC93C],[0x3D7BFF,0xE8323C],[0x3D7BFF,0xC0C6CE],[0x7CC4FF,0x3D7BFF],[0x1FA65A,0xFFC93C],[0x1FA65A,0xFFFFFF],
 [0x8A5CF5,0xFFC93C],[0x8A5CF5,0x2FD6B5],[0xE8323C,0xFFC93C],[0xE8323C,0xC0C6CE],[0xE8323C,0xFFFFFF],[0xB8324E,0xFFC93C],[0x1FB5A8,0xFF8A2A],
-[0xFF8A2A,0xFFFFFF],[0x5A5F68,0xFFC93C]];
+[0xFF8A2A,0xFFFFFF],[0x5A5F68,0xFFC93C],
+[0xFF3B3B,0xFF9632,0xFFD93C,0x4BE38A,0x3D8BFF,0xB06CFF],[0xC3B091,0x8A9A4B]];
 var BACKGROUNDS=[0x2F6BFF,0x1E3A9E,0x12A89A,0x1FA65A,0x9CD81E,0xF5B920,0xFF7A1A,0xE0242E,0x9E2140,0xFF4F97,0x7A48EE,0xC0C6CE];
-var TILE_PALETTE=BACKGROUNDS.concat([0x000000,0xFFFFFF]);
+var TILE_PALETTE=BACKGROUNDS.concat([0x000000,0xFFFFFF,0x4B5320,0x81613C,0x3E4A3D,0xC3B091]);
+var CAMO=[0x81613C,0xC3B091,0x4B5320,0x3E4A3D];
 var GLASS_RING=[0xAC77FF,0x8A7AFF,0x7284FF,0x618CFF,0x5594FF,0x4C97FF,0x449BFF,0x3E9BFF,0x399DFF,0x3BA1FF,0x4BABFF,0x4CADFF,0x44AEFF,0x3EB1FF,0x3AB7FF,0x37BEFF,0x35C6FF,0x34D4FF,0x34E0FF,0x34E9FF,0x2AF1FF,0x21F6FF,0x31FAFF,0x37F9FF,0x36F7FF,0x36EFFF,0x37E7FF,0x3BD9FF,0x40C9FF,0x45B2FF,0x4997FF,0x4F7DFF,0x5466FF,0x5A54FF,0x664DFF,0x6E48FF,0x7346FF,0x7C49FF,0x7D48FF,0x8549FF,0x904EFF,0x9348FF,0x9E47FF,0xAD49FF,0xC14EFF,0xD753FF,0xEB57FF,0xFF5CFF,0xFF61EE,0xFF57E3,0xFF46D9,0xFF47D5,0xFF48D5,0xFF4BD5,0xFF4FDA,0xFF55E1,0xFF5DED,0xFF6AFD,0xE870FF,0xCD73FF];
 var WASH=36, WASH_LIGHT=55;
 var cal={px:0,py:0,lx:0,ly:0,rx:0,ry:0,tx:0,ty:1,lodd:0.5,lev:0.5,dr:0.5,ddx:0,ddy:0,lx2:0,ly2:0};   // ty: the watch centres text one pixel lower than half the font height
@@ -133,7 +135,7 @@ function render(S,ctx,dial){
 
   // tile colors, tonal rows, washes
   var rc=[-1,-1,-1,-1];
-  for(var t=0;t<4;t++){var tv=S[10+t];rc[t]=tv===0?-1:TILE_PALETTE[tv-1]}
+  for(var t=0;t<4;t++){var tv=S[10+t];rc[t]=tv===0?-1:(tv>TILE_PALETTE.length?CAMO[t]:TILE_PALETTE[tv-1])}
   var step=[0,0,0,0];
   if(rc[2]>=0){var topSame=false;for(t=0;t<2;t++){if(rc[t]===rc[2]){step[t]=20;topSame=true}}
     if(rc[3]===rc[2])step[3]=topSame?40:20}
@@ -147,7 +149,10 @@ function render(S,ctx,dial){
     eff[t]=tile[t]<0?tile[t]:blend(under,tile[t],wash[t]);
     see[t]=eff[t]<0?under:eff[t];
   }
-  function textPick(t,auto){var v=S[14+t];if(v===0)return auto;return v===1?0xFFFFFF:(v===2?0x000000:BACKGROUNDS[v-3])}
+  function textPick(t,auto){var v=S[14+t];if(v===0)return auto;
+    if(v===3+BACKGROUNDS.length)return lightTile(see[t])?[0xC62828,0xC4570E,0x9A7400,0x0E8A45][t]:[0xFF4D4D,0xFF9632,0xFFD93C,0x4BE38A][t];
+    if(v>3+BACKGROUNDS.length)return [0xC3B091,0x6B7A35][v-4-BACKGROUNDS.length];
+    return v===1?0xFFFFFF:(v===2?0x000000:BACKGROUNDS[v-3])}
 
   ctx.save();
   ctx.beginPath();ctx.arc(W/2,W/2,W/2,0,Math.PI*2);ctx.clip();   // the screen is round
@@ -208,7 +213,7 @@ function render(S,ctx,dial){
     pen(raw(3));
     for(i=0;i<60;i++){
       var a=i*6*Math.PI/180, sx=Math.sin(a), cy=-Math.cos(a);
-      var on=finish===4?GLASS_RING[i]:(pal.length===2?secC:pal[Math.min(pal.length-1,idiv(i*pal.length,60))]);
+      var on=(finish===4&&pal.length<=2)?GLASS_RING[i]:(pal.length===2?secC:pal[Math.min(pal.length-1,idiv(i*pal.length,60))]);
       setc(i<=sec?on:tick);line(cc+r0*sx,cc+r0*cy,cc+r1*sx,cc+r1*cy);
     }
     pen(1);
@@ -289,6 +294,7 @@ function render(S,ctx,dial){
   // ---- bottom gauge ----
   var bc=eff[3];
   if(bc>=0){fg=inkFg(bc);soft=inkSoft(bc);accent=vis(accent,bc,fg);red=vis(lightTile(bc)?0xC62828:0xFF3B3B,bc,fg);off=blend(bc,lightTile(bc)?0:0xFFFFFF,18)}
+  var fgInk=fg;
   fg=textPick(3,fg);soft=textPick(3,soft);
   var b=BARS[S[4]], pct=b[0], lit=Math.trunc((pct+4)/8.34);
   if(lit<1&&pct>0)lit=1;if(lit>12)lit=12;
@@ -309,7 +315,8 @@ function render(S,ctx,dial){
     if(w2>0){if(w2<sc(8))w2=sc(8);setc(b[2]?red:accent);rrect(p(141)+sc(5),gy+sc(5),w2,gh-sc(10),sc(4))}
     pen(1);
   }else{
-    for(i=0;i<12;i++){var xx=p(131+i*16);setc(i<lit?(b[2]?red:accent):off);
+    for(i=0;i<12;i++){var xx=p(131+i*16);var segc=accent;if(pal.length>2)segc=bc>=0?vis(pal[Math.min(pal.length-1,idiv(i*pal.length,12))],bc,fgInk):pal[Math.min(pal.length-1,idiv(i*pal.length,12))];
+    setc(i<lit?(b[2]?red:segc):off);
       poly([[xx+sc(6),gy],[xx+sc(16)-1,gy],[xx+sc(10)-1,gy+gh],[xx,gy+gh]])}
   }
   if(!lightTile(see[3]))drawText(ctx,fs,b[1],p(227)+1,capY+so,"c",blend(see[3],0,50));

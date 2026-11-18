@@ -278,7 +278,7 @@ footer .fc h2{margin-right:var(--s2)}
 @media(min-width:900px){.grid.featured .cimg .stage{aspect-ratio:1/1;max-height:720px}.hero .stage:has(img.face[src$="-watch.jpg"]){height:auto;aspect-ratio:1/1;max-height:720px}}
 
 /* screen only: clean circle, no case corners */
-.stage img.face[src$="-watch.jpg"],.stage video.face{transform:scale(1.14);clip-path:circle(43% at 50% 50%);mix-blend-mode:normal}
+.stage img.face[src$="-watch.jpg"],.stage video.face{transform:scale(1);object-position:50% 33%;clip-path:circle(43% at 50% 50%);mix-blend-mode:normal}
 .stage:has(img.face[src$="-watch.jpg"]),.stage:has(video.face){background:none;border:0;box-shadow:none}
 
 /* square the media so the circle is a circle and fits its stage */

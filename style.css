@@ -259,3 +259,6 @@ footer .fc h2{margin-right:var(--s2)}
   .cimg .stage:has(img.face[src$="-watch.jpg"]),.cimg .stage:has(video.face){height:clamp(400px,108vw,600px)}
   .hero .stage:has(img.face[src$="-watch.jpg"]),.hero .stage:has(video.face){height:clamp(400px,104vw,600px)}
 }
+/* home hero: bigger watch column, never wider than its grid cell */
+.hero-fig{min-width:0;width:100%;aspect-ratio:auto}
+@media(min-width:900px){.hero-copy{grid-column:1/6}.hero-fig{grid-column:6/13}.hero .stage:has(img.face[src$="-watch.jpg"]){height:clamp(520px,60vw,720px)}}

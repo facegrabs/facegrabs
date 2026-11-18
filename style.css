@@ -271,20 +271,3 @@ footer .fc h2{margin-right:var(--s2)}
 .grid.featured .cimg .stage{aspect-ratio:688/780;height:auto;max-height:780px}
 .grid.featured .cbody{padding:0}
 }
-
-/* sell the screen: crop tight to the dial (no straps), bigger screen */
-.stage:has(img.face[src$="-watch.jpg"]),.stage:has(video.face){overflow:hidden}
-.stage img.face[src$="-watch.jpg"],.stage video.face{aspect-ratio:1/1;object-fit:cover;object-position:50% 50%;transform:scale(1.28);transform-origin:50% 50%}
-@media(min-width:900px){.grid.featured .cimg .stage{aspect-ratio:1/1;max-height:720px}.hero .stage:has(img.face[src$="-watch.jpg"]){height:auto;aspect-ratio:1/1;max-height:720px}}
-
-/* screen only: clean circle, no case corners */
-.stage img.face[src$="-watch.jpg"],.stage video.face{transform:scale(1);object-position:50% 33%;clip-path:circle(43% at 50% 50%);mix-blend-mode:normal}
-.stage:has(img.face[src$="-watch.jpg"]),.stage:has(video.face){background:none;border:0;box-shadow:none}
-
-/* square the media so the circle is a circle and fits its stage */
-.stage img.face[src$="-watch.jpg"],.stage video.face{width:100%;height:auto;max-width:100%;max-height:none;aspect-ratio:1/1}
-
-/* FINAL: show only the screen, centered. Dial center (233,295) r~172 in the 460x602 frames. */
-.stage:has(img.face[src$="-watch.jpg"]),.stage:has(video.face){position:relative;overflow:hidden;aspect-ratio:1/1!important;height:auto!important;max-height:none!important;border-radius:50%;background:none;border:0;box-shadow:none;padding:0!important}
-.stage img.face[src$="-watch.jpg"],.stage video.face{position:absolute;width:133.7%!important;max-width:none!important;height:auto!important;left:-17.7%;top:-35.8%;transform:none!important;clip-path:none!important;aspect-ratio:460/602!important;object-fit:fill;mix-blend-mode:normal}
-.grid.featured .cimg .stage{max-width:680px}

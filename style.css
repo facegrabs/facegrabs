@@ -286,5 +286,5 @@ footer .fc h2{margin-right:var(--s2)}
 
 /* FINAL: show only the screen, centered. Dial center (233,295) r~172 in the 460x602 frames. */
 .stage:has(img.face[src$="-watch.jpg"]),.stage:has(video.face){position:relative;overflow:hidden;aspect-ratio:1/1!important;height:auto!important;max-height:none!important;border-radius:50%;background:none;border:0;box-shadow:none;padding:0!important}
-.stage img.face[src$="-watch.jpg"],.stage video.face{position:absolute;width:133.7%!important;max-width:none!important;height:auto!important;left:-17.7%;top:-35.8%;transform:none!important;clip-path:none!important;aspect-ratio:auto!important;object-fit:fill;mix-blend-mode:normal}
+.stage img.face[src$="-watch.jpg"],.stage video.face{position:absolute;width:133.7%!important;max-width:none!important;height:auto!important;left:-17.7%;top:-35.8%;transform:none!important;clip-path:none!important;aspect-ratio:460/602!important;object-fit:fill;mix-blend-mode:normal}
 .grid.featured .cimg .stage{max-width:680px}

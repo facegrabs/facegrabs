@@ -76,10 +76,10 @@
 var FINISHES=["Steel","Ice","Carbon","Bronze","Glass"];
 var ACCENTS=[["Cyan","#35CFEA"],["Orange","#FF9632"],["Green","#4BE38A"],["Red","#FF4D4D"],["Gold","#FFC93C"],["Violet","#B48CFF"],["White","#FFFFFF"],["Blue","#3D7BFF"],["Pink","#FF5FA2"],["Lime","#B6F23A"],["Teal","#2FD6B5"],
 ["Blue + Orange","#3D7BFF","#FF8A2A"],["Blue + Gold","#3D7BFF","#FFC93C"],["Blue + Red","#3D7BFF","#E8323C"],["Blue + Silver","#3D7BFF","#C0C6CE"],["Sky + Blue","#7CC4FF","#3D7BFF"],["Green + Gold","#1FA65A","#FFC93C"],["Green + White","#1FA65A","#FFFFFF"],
-["Purple + Gold","#8A5CF5","#FFC93C"],["Purple + Teal","#8A5CF5","#2FD6B5"],["Red + Gold","#E8323C","#FFC93C"],["Red + Silver","#E8323C","#C0C6CE"],["Red + White","#E8323C","#FFFFFF"],["Maroon + Gold","#B8324E","#FFC93C"],["Teal + Orange","#1FB5A8","#FF8A2A"],["Orange + White","#FF8A2A","#FFFFFF"],["Black + Gold","#5A5F68","#FFC93C"]];
+["Purple + Gold","#8A5CF5","#FFC93C"],["Purple + Teal","#8A5CF5","#2FD6B5"],["Red + Gold","#E8323C","#FFC93C"],["Red + Silver","#E8323C","#C0C6CE"],["Red + White","#E8323C","#FFFFFF"],["Maroon + Gold","#B8324E","#FFC93C"],["Teal + Orange","#1FB5A8","#FF8A2A"],["Orange + White","#FF8A2A","#FFFFFF"],["Black + Gold","#5A5F68","#FFC93C"],["Rainbow","#FF3B3B","#B06CFF","linear-gradient(90deg,#FF3B3B,#FF9632,#FFD93C,#4BE38A,#3D8BFF,#B06CFF)"],["Khaki + Olive","#C3B091","#8A9A4B"]];
 var FIELDS=["Steps","Temperature","Heart rate","Resting heart rate","Body Battery","Stress","Sunrise / sunset","Altitude","Floors","Calories","Distance","Active minutes","Recovery time","Battery days"];
-var TILE_COLORS=[["Blue","#2F6BFF"],["Navy","#1E3A9E"],["Teal","#12A89A"],["Green","#1FA65A"],["Lime","#9CD81E"],["Gold","#F5B920"],["Orange","#FF7A1A"],["Red","#E0242E"],["Maroon","#9E2140"],["Pink","#FF4F97"],["Purple","#7A48EE"],["Silver","#C0C6CE"],["Black","#000000"],["White","#FFFFFF"]];
-var TEXT_COLORS=["Auto","White","Black"].concat(TILE_COLORS.slice(0,12).map(function(t){return t[0]}));
+var TILE_COLORS=[["Blue","#2F6BFF"],["Navy","#1E3A9E"],["Teal","#12A89A"],["Green","#1FA65A"],["Lime","#9CD81E"],["Gold","#F5B920"],["Orange","#FF7A1A"],["Red","#E0242E"],["Maroon","#9E2140"],["Pink","#FF4F97"],["Purple","#7A48EE"],["Silver","#C0C6CE"],["Black","#000000"],["White","#FFFFFF"],["Olive Drab","#4B5320"],["Coyote Tan","#81613C"],["Ranger Green","#3E4A3D"],["Khaki","#C3B091"],["Camo set","#81613C","#4B5320","conic-gradient(#81613C 0 25%,#C3B091 0 50%,#4B5320 0 75%,#3E4A3D 0 100%)"]];
+var TEXT_COLORS=["Auto","White","Black"].concat(TILE_COLORS.slice(0,12).map(function(t){return t[0]})).concat(["Rainbow","Khaki","Olive Drab"]);
 var BAR=["Battery","Step goal","Body Battery","Weekly active minutes"],SECONDS=["Off","Digits","Edge ring"],FONTS=["Wide","Sport","Tall","Clean","Light"],GAUGE=["Slanted","Solid","Battery"],SHADE=["Auto","Light","Dark"];
 var TILE_SET=["Top left tile","Top right tile","Time card","Bottom tile"], TEXT_SET=["Top left text","Top right text","Time card text","Bottom text"];
 var TILE_NAMES=["Top left","Top right","Time card","Bottom"];
@@ -112,7 +112,7 @@ function swatches(host,items,withMatch,set,label){
   all.forEach(function(it,k){
     var b=document.createElement("button");b.type="button";
     b.title=it[0];b.setAttribute("aria-label",(label?label+": ":"")+it[0]);
-    if(it[2])b.style.background="linear-gradient(135deg,"+it[1]+" 50%,"+it[2]+" 50%)";
+    if(it[3])b.style.background=it[3];else if(it[2])b.style.background="linear-gradient(135deg,"+it[1]+" 50%,"+it[2]+" 50%)";
     else if(it[1])b.style.background=it[1];else b.className="match";
     b.addEventListener("click",function(){set(k);sync()});
     host.appendChild(b);

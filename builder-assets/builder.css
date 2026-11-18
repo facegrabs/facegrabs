@@ -1,0 +1,36 @@
+/* Slab Pro builder. Everything is scoped to #bld so it cannot touch other pages. */
+#bld{padding-top:var(--s4);padding-bottom:var(--s8)}
+#bld .btn{background:transparent;font-family:inherit;cursor:pointer}
+#bld .btn.primary{background:var(--accent)}
+#bld .b-panel,#bld .b-grid>div{min-width:0}
+#bld .b-head{padding-bottom:var(--s4)}
+#bld .b-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start}
+#bld .b-stage{background:#fff;border:1px solid var(--stage-line,#e6e3dc);border-radius:var(--r);padding:24px;display:grid;place-items:center;position:sticky;top:88px;color:#15181d}
+#bld .b-stage canvas{width:100%;max-width:420px;height:auto;aspect-ratio:460/602;display:block}
+#bld .b-cap{font-size:.875rem;color:#58616c;text-align:center;margin:10px 0 0;max-width:none}
+#bld .b-step{padding:0 0 28px;margin:0 0 28px;border-bottom:1px solid var(--line)}
+#bld .b-step h2{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:0 0 8px;font-weight:600}
+#bld .b-step h3{margin:0 0 4px}
+#bld .b-sub{margin:0 0 16px;color:var(--mute);font-size:.9375rem}
+#bld .b-lab{display:block;font-size:.8125rem;font-weight:600;color:var(--mute);margin:14px 0 6px}
+#bld select{width:100%;min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--fg);font:inherit;font-size:.9375rem}
+#bld .b-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#bld .b-sw{display:flex;flex-wrap:wrap;gap:8px}
+#bld .b-sw button{width:36px;height:36px;border-radius:50%;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+#bld .b-sw button[aria-pressed=true]{box-shadow:0 0 0 2px var(--fg)}
+#bld .b-sw button.match{background:conic-gradient(#8c939c 0 50%,#d9dde2 0 100%)}
+#bld .b-sw.big button{width:44px;height:44px}
+#bld .b-tiles{display:grid;gap:14px}
+#bld .b-nm{font-size:.8125rem;font-weight:600;color:var(--mute);margin:0 0 6px;display:flex;justify-content:space-between;max-width:none}
+#bld .b-nm em{font-style:normal;font-weight:500}
+#bld .b-row{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+#bld .b-more{border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin:24px 0 0;font-size:.9375rem}
+#bld .b-more b{display:block;margin-bottom:4px}
+#bld .b-more p{margin:0}
+#bld .b-tiny{font-size:.8125rem;color:var(--mute);margin:12px 0 0}
+@media (max-width:860px){
+  #bld .b-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  #bld .b-stage{position:static;padding:16px}
+  #bld .b-stage canvas{max-width:340px}
+}
+@media (max-width:420px){#bld .b-two{grid-template-columns:1fr}}

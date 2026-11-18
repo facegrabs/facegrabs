@@ -34,3 +34,20 @@
   #bld .b-stage canvas{max-width:340px}
 }
 @media (max-width:420px){#bld .b-two{grid-template-columns:1fr}}
+/* 2026-11-18: full builder (14 tile colors, text colors, 27 accents, fields, fonts, gauge, seconds) */
+#bld .b-stage canvas[hidden]{display:none}
+#bld #close{aspect-ratio:1/1;max-width:420px}
+#bld .b-seg{display:flex;gap:0;margin:14px 0 0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+#bld .b-seg button{font:inherit;font-size:.875rem;min-height:40px;padding:0 16px;border:0;background:transparent;color:#15181d;cursor:pointer}
+#bld .b-seg button+button{border-left:1px solid var(--line)}
+#bld .b-seg button[aria-pressed=true]{background:#15181d;color:#fff}
+#bld .b-sw:not(.big) button{width:32px;height:32px}
+#bld .b-tilerow{padding:10px 12px 12px;border:1px solid var(--line);border-radius:var(--r)}
+#bld .b-tl{margin:10px 0 4px;font-weight:500}
+#bld .b-tilerow select{min-height:40px}
+#bld .b-h3b{margin:28px 0 4px}
+#bld .b-dl{display:grid;grid-template-columns:minmax(0,max-content) minmax(0,1fr);gap:6px 16px;margin:0 0 16px;font-size:.9375rem}
+#bld .b-dl dt{color:var(--mute);margin:0}
+#bld .b-dl dd{margin:0;font-weight:600}
+#bld .b-links{margin:14px 0 14px;font-size:.9375rem}
+#bld .b-get .b-row{margin:0 0 8px}

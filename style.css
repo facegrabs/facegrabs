@@ -285,3 +285,8 @@ footer .fc h2{margin-right:var(--s2)}
 .guide .look h3{margin:0 0 var(--s1)}
 .guide .look ul{font-size:.875rem;padding-left:var(--s3);margin:0}
 .guide .look p{font-size:.875rem;color:var(--mute);margin:0 0 var(--s1)}
+
+/* natural watch proportions override 2026-11-19 */
+.stage img.face[src$="-watch.jpg"],.stage video.face{aspect-ratio:auto;object-fit:contain;max-height:760px;width:auto;height:auto;max-width:100%;object-position:center;padding:0}
+.stage:has(img.face[src$="-watch.jpg"]),.stage:has(video.face),.stage.hero-stage:has(img.face[src$="-watch.jpg"]),.stage.hero-stage:has(video.face),.cimg .stage:has(img.face[src$="-watch.jpg"]),.cimg .stage:has(video.face),.hero .stage:has(img.face[src$="-watch.jpg"]),.hero .stage:has(video.face){aspect-ratio:auto;height:auto}
+.grid.featured .cimg .stage,.hero-fig{aspect-ratio:auto;height:auto}

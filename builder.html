@@ -43,6 +43,7 @@
 <div class="b-two"><div><label class="b-lab" for="font">Time font</label><select id="font"></select></div><div><label class="b-lab" for="sec">Seconds</label><select id="sec"></select></div></div>
 <div class="b-two"><div><label class="b-lab" for="bar">Bottom bar</label><select id="bar"></select></div><div><label class="b-lab" for="bs">Gauge style</label><select id="bs"></select></div></div>
 <label class="b-lab" for="shade">Accent shade</label><select id="shade"></select>
+<label class="b-lab" for="batc">Battery colors</label><select id="batc"></select>
 <h3 class="b-h3b" id="s2b">See it on your watch</h3>
 <p class="b-sub">Shown on a fenix 8 47 mm. Choose a band color to match yours.</p>
 <label class="b-lab" id="bandlab">Band color</label><div class="b-sw big" id="band" role="group" aria-labelledby="bandlab"></div>
@@ -78,14 +79,14 @@ var ACCENTS=[["Cyan","#35CFEA"],["Orange","#FF9632"],["Green","#4BE38A"],["Red",
 ["Blue + Orange","#3D7BFF","#FF8A2A"],["Blue + Gold","#3D7BFF","#FFC93C"],["Blue + Red","#3D7BFF","#E8323C"],["Blue + Silver","#3D7BFF","#C0C6CE"],["Sky + Blue","#7CC4FF","#3D7BFF"],["Green + Gold","#1FA65A","#FFC93C"],["Green + White","#1FA65A","#FFFFFF"],
 ["Purple + Gold","#8A5CF5","#FFC93C"],["Purple + Teal","#8A5CF5","#2FD6B5"],["Red + Gold","#E8323C","#FFC93C"],["Red + Silver","#E8323C","#C0C6CE"],["Red + White","#E8323C","#FFFFFF"],["Maroon + Gold","#B8324E","#FFC93C"],["Teal + Orange","#1FB5A8","#FF8A2A"],["Orange + White","#FF8A2A","#FFFFFF"],["Black + Gold","#5A5F68","#FFC93C"],["Rainbow","#FF3B3B","#B06CFF","linear-gradient(90deg,#FF3B3B,#FF9632,#FFD93C,#4BE38A,#3D8BFF,#B06CFF)"],["Khaki + Olive","#C3B091","#8A9A4B"]];
 var FIELDS=["Steps","Temperature","Heart rate","Resting heart rate","Body Battery","Stress","Sunrise / sunset","Altitude","Floors","Calories","Distance","Active minutes","Recovery time","Battery days"];
-var TILE_COLORS=[["Blue","#2F6BFF"],["Navy","#1E3A9E"],["Teal","#12A89A"],["Green","#1FA65A"],["Lime","#9CD81E"],["Gold","#F5B920"],["Orange","#FF7A1A"],["Red","#E0242E"],["Maroon","#9E2140"],["Pink","#FF4F97"],["Purple","#7A48EE"],["Silver","#C0C6CE"],["Black","#000000"],["White","#FFFFFF"],["Olive Drab","#4B5320"],["Coyote Tan","#81613C"],["Ranger Green","#3E4A3D"],["Khaki","#C3B091"],["Camo set","#81613C","#4B5320","conic-gradient(#81613C 0 25%,#C3B091 0 50%,#4B5320 0 75%,#3E4A3D 0 100%)"]];
+var TILE_COLORS=[["Blue","#2F6BFF"],["Navy","#1E3A9E"],["Teal","#12A89A"],["Green","#1FA65A"],["Lime","#9CD81E"],["Gold","#F5B920"],["Orange","#FF7A1A"],["Red","#E0242E"],["Maroon","#9E2140"],["Pink","#FF4F97"],["Purple","#7A48EE"],["Silver","#C0C6CE"],["Black","#000000"],["White","#FFFFFF"],["Olive Drab","#4E5C1A"],["Coyote Tan","#8A6234"],["Ranger Green","#355A36"],["Khaki","#C8B286"],["Camo set","#8A6234","#4E5C1A","conic-gradient(#8A6234 0 25%,#C8B286 0 50%,#4E5C1A 0 75%,#355A36 0 100%)"]];
 var TEXT_COLORS=["Auto","White","Black"].concat(TILE_COLORS.slice(0,12).map(function(t){return t[0]})).concat(["Rainbow","Khaki","Olive Drab"]);
-var BAR=["Battery","Step goal","Body Battery","Weekly active minutes"],SECONDS=["Off","Digits","Edge ring"],FONTS=["Wide","Sport","Tall","Clean","Light"],GAUGE=["Slanted","Solid","Battery"],SHADE=["Auto","Light","Dark"];
+var BAR=["Battery","Step goal","Body Battery","Weekly active minutes"],SECONDS=["Off","Digits","Edge ring"],FONTS=["Wide","Sport","Tall","Clean","Light"],GAUGE=["Slanted","Solid","Battery"],SHADE=["Auto","Light","Dark"],BATC=["Accent","Green, yellow, red"];
 var TILE_SET=["Top left tile","Top right tile","Time card","Bottom tile"], TEXT_SET=["Top left text","Top right text","Time card text","Bottom text"];
 var TILE_NAMES=["Top left","Top right","Time card","Bottom"];
 var BANDS=[["Black",null],["Navy","#1f3f8f"],["Red","#c8302e"],["Orange","#e8761a"],["Green","#2f8a4f"],["Gray","#8d939b"]];
 // settings, by the watch's own numbers: 0 Finish 1 Accent 2 FieldLeft 3 FieldRight 4 Bar 5 Seconds 6 Font 7 BarStyle 8 Background 9 Shade 10-13 tiles 14-17 text
-var DEFAULT=[0,0,0,1,0,0,0,0,0,0, 0,0,0,0, 0,0,0,0];
+var DEFAULT=[0,0,0,1,0,0,0,0,0,0, 0,0,0,0, 0,0,0,0, 0];
 var st=DEFAULT.slice(), band=0, view="watch";
 
 // ---- watch photo geometry (460 x 602 frame) ----
@@ -103,9 +104,9 @@ function load(src){
 
 // ---- controls ----
 function opt(sel,list,val){list.forEach(function(t,i){var o=document.createElement("option");o.value=i;o.textContent=t;sel.appendChild(o)});sel.value=val}
-opt($("finish"),FINISHES,0);opt($("fl"),FIELDS,0);opt($("fr"),FIELDS,1);opt($("font"),FONTS,0);opt($("sec"),SECONDS,0);opt($("bar"),BAR,0);opt($("bs"),GAUGE,0);opt($("shade"),SHADE,0);
+opt($("finish"),FINISHES,0);opt($("fl"),FIELDS,0);opt($("fr"),FIELDS,1);opt($("font"),FONTS,0);opt($("sec"),SECONDS,0);opt($("bar"),BAR,0);opt($("bs"),GAUGE,0);opt($("shade"),SHADE,0);opt($("batc"),BATC,0);
 function bindSel(id,n){$(id).addEventListener("change",function(){st[n]=+this.value;sync()})}
-bindSel("finish",0);bindSel("fl",2);bindSel("fr",3);bindSel("font",6);bindSel("sec",5);bindSel("bar",4);bindSel("bs",7);bindSel("shade",9);
+bindSel("finish",0);bindSel("fl",2);bindSel("fr",3);bindSel("font",6);bindSel("sec",5);bindSel("bar",4);bindSel("bs",7);bindSel("shade",9);bindSel("batc",18);
 function swatches(host,items,withMatch,set,label){
   host.innerHTML="";
   var all=(withMatch?[["Match theme",null]]:[]).concat(items);
@@ -135,7 +136,7 @@ $("vclose").addEventListener("click",function(){view="close";sync()});
 function mark(host,val){[].forEach.call(host.children,function(b,i){b.setAttribute("aria-pressed",i===val?"true":"false")})}
 
 function sync(){
-  $("finish").value=st[0];$("fl").value=st[2];$("fr").value=st[3];$("font").value=st[6];$("sec").value=st[5];$("bar").value=st[4];$("bs").value=st[7];$("shade").value=st[9];
+  $("finish").value=st[0];$("fl").value=st[2];$("fr").value=st[3];$("font").value=st[6];$("sec").value=st[5];$("bar").value=st[4];$("bs").value=st[7];$("shade").value=st[9];$("batc").value=st[18];
   mark($("accent"),st[1]);mark($("band"),band);
   for(var t=0;t<4;t++){mark($("tile"+t),st[10+t]);$("tn"+t).textContent=st[10+t]?TILE_COLORS[st[10+t]-1][0]:"Match theme";$("tx"+t).value=st[14+t]}
   $("vwatch").setAttribute("aria-pressed",view==="watch");$("vclose").setAttribute("aria-pressed",view==="close");
@@ -152,7 +153,7 @@ function lookRows(){
   add("Accent shade",SHADE[st[9]],9);
   for(var t=0;t<4;t++){add(TILE_SET[t],st[10+t]?TILE_COLORS[st[10+t]-1][0]:"Match theme",10+t);add(TEXT_SET[t],TEXT_COLORS[st[14+t]],14+t)}
   add("Top left",FIELDS[st[2]],2);add("Top right",FIELDS[st[3]],3);
-  add("Bottom bar",BAR[st[4]],4);add("Seconds",SECONDS[st[5]],5);add("Time font",FONTS[st[6]],6);add("Gauge style",GAUGE[st[7]],7);
+  add("Bottom bar",BAR[st[4]],4);add("Seconds",SECONDS[st[5]],5);add("Time font",FONTS[st[6]],6);add("Gauge style",GAUGE[st[7]],7);add("Battery colors",BATC[st[18]],18);
   return rows;
 }
 function getList(){
@@ -221,7 +222,7 @@ function render(){
 Promise.all([fetch("builder-assets/fonts.json").then(function(r){return r.json()}),load("builder-assets/photo.jpg"),load("builder-assets/strap.png")])
   .then(function(r){fontsMeta=r[0];photo=r[1];strap=r[2];
     var q=new URLSearchParams(location.search);   // optional preset: ?s=<18 numbers, the watch's setting numbers>&band=2
-    if(q.has("s")){var a=q.get("s").split(",").map(Number);if(a.length===18&&a.every(function(v){return isFinite(v)&&v>=0}))st=a}
+    if(q.has("s")){var a=q.get("s").split(",").map(Number);if((a.length===18||a.length===19)&&a.every(function(v){return isFinite(v)&&v>=0})){while(a.length<19)a.push(0);st=a}}
     if(q.has("band"))band=Math.min(BANDS.length-1,Math.max(0,+q.get("band")||0));
     if(q.get("view")==="close")view="close";
     sync()})

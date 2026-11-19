@@ -15,10 +15,11 @@ var PALETTES=[[0x35CFEA],[0xFF9632],[0x4BE38A],[0xFF4D4D],[0xFFC93C],[0xB48CFF],
 [0xFF8A2A,0xFFFFFF],[0x5A5F68,0xFFC93C],
 [0xFF3B3B,0xFF9632,0xFFD93C,0x4BE38A,0x3D8BFF,0xB06CFF],[0xC3B091,0x8A9A4B]];
 var BACKGROUNDS=[0x2F6BFF,0x1E3A9E,0x12A89A,0x1FA65A,0x9CD81E,0xF5B920,0xFF7A1A,0xE0242E,0x9E2140,0xFF4F97,0x7A48EE,0xC0C6CE];
-var TILE_PALETTE=BACKGROUNDS.concat([0x000000,0xFFFFFF,0x4B5320,0x81613C,0x3E4A3D,0xC3B091]);
-var CAMO=[0x81613C,0xC3B091,0x4B5320,0x3E4A3D];
+var TILE_PALETTE=BACKGROUNDS.concat([0x000000,0xFFFFFF,0x4E5C1A,0x8A6234,0x355A36,0xC8B286]);
+var CAMO=[0x8A6234,0xC8B286,0x4E5C1A,0x355A36];
 var GLASS_RING=[0xAC77FF,0x8A7AFF,0x7284FF,0x618CFF,0x5594FF,0x4C97FF,0x449BFF,0x3E9BFF,0x399DFF,0x3BA1FF,0x4BABFF,0x4CADFF,0x44AEFF,0x3EB1FF,0x3AB7FF,0x37BEFF,0x35C6FF,0x34D4FF,0x34E0FF,0x34E9FF,0x2AF1FF,0x21F6FF,0x31FAFF,0x37F9FF,0x36F7FF,0x36EFFF,0x37E7FF,0x3BD9FF,0x40C9FF,0x45B2FF,0x4997FF,0x4F7DFF,0x5466FF,0x5A54FF,0x664DFF,0x6E48FF,0x7346FF,0x7C49FF,0x7D48FF,0x8549FF,0x904EFF,0x9348FF,0x9E47FF,0xAD49FF,0xC14EFF,0xD753FF,0xEB57FF,0xFF5CFF,0xFF61EE,0xFF57E3,0xFF46D9,0xFF47D5,0xFF48D5,0xFF4BD5,0xFF4FDA,0xFF55E1,0xFF5DED,0xFF6AFD,0xE870FF,0xCD73FF];
-var WASH=36, WASH_LIGHT=55;
+var WASH=36, WASH_LIGHT=55, WASH_BW=88, WASH_DEEP=60;
+function deep(c){var r=(c>>16)&255,g=(c>>8)&255,b=c&255,mx=Math.max(r,g,b),mn=Math.min(r,g,b);return idiv(r*3+g*6+b,10)<90||mx-mn<70}
 var cal={px:0,py:0,lx:0,ly:0,rx:0,ry:0,tx:0,ty:1,lodd:0.5,lev:0.5,dr:0.5,ddx:0,ddy:0,lx2:0,ly2:0};   // ty: the watch centres text one pixel lower than half the font height
 // Fixed demo values (what the face shows in the pictures): time 10:08, TUE 17, second 37.
 var DEMO={hour:"10",min:"08",sec:37,wd:"TUE",day:"17"};
@@ -146,6 +147,7 @@ function render(S,ctx,dial){
     var under=base[t<2?0:t-1];
     tile[t]=rc[t]<0?-1:tone(rc[t],step[t]);
     wash[t]=lum(under)>138?WASH_LIGHT:WASH;
+    if(rc[t]===0xFFFFFF)wash[t]=WASH_BW;else if(rc[t]===0)wash[t]=WASH_DEEP;else if(rc[t]>=0&&wash[t]===WASH&&deep(rc[t]))wash[t]=WASH_DEEP;
     eff[t]=tile[t]<0?tile[t]:blend(under,tile[t],wash[t]);
     see[t]=eff[t]<0?under:eff[t];
   }
@@ -261,6 +263,13 @@ function render(S,ctx,dial){
   if(shOn){drawText(ctx,fl,weekday,weekdayRight+so,dateY+so,"r",shT);drawText(ctx,fl,dayStr,dateR+so,dateY+so,"r",shT)}
   drawText(ctx,fl,weekday,weekdayRight,dateY,"r",tacc);
   var n=pal.length===2?1:pal.length;
+  if(n>2&&pal.length>2){
+    // Rainbow: a bolder bar the length of the hairline, one segment per color, and a matching bar under the hours
+    var bh=sc(5),bw=sc(142),bx=dateR+sc(2)-bw,by=lineY+sc(2)-idiv(bh,2),ux=pd(24),uw=pd(150)-ux,uy=pd(320)-idiv(bh,2),under=S[5]!==1;
+    for(i=0;i<n;i++){setc(pal[i]);
+      var a0=bx+idiv(bw*i,n),a1=bx+idiv(bw*(i+1),n);ctx.fillRect(a0,by,a1-a0,bh);
+      if(under){var c0=ux+idiv(uw*i,n),c1=ux+idiv(uw*(i+1),n);ctx.fillRect(c0,uy,c1-c0,bh)}}
+  }else{
   for(i=0;i<n;i++){
     var bc2=pal.length===2?secC:pal[i];
     setc(tc<0?bc2:vis(bc2,tc,tink));
@@ -269,6 +278,7 @@ function render(S,ctx,dial){
   }
   setc(tsoft);pen(1);
   line(dateR-sc(140),lineY+sc(2),dateR+sc(2),lineY+sc(2));
+  }
   drawText(ctx,fl,dayStr,dateR,dateY,"r",tfg);
 
   // ---- top fields ----
@@ -296,8 +306,12 @@ function render(S,ctx,dial){
   if(bc>=0){fg=inkFg(bc);soft=inkSoft(bc);accent=vis(accent,bc,fg);red=vis(lightTile(bc)?0xC62828:0xFF3B3B,bc,fg);off=blend(bc,lightTile(bc)?0:0xFFFFFF,18)}
   var fgInk=fg;
   fg=textPick(3,fg);soft=textPick(3,soft);
-  var b=BARS[S[4]], pct=b[0], lit=Math.trunc((pct+4)/8.34);
+  var b=BARS[S[4]];if(S[4]===0){var bpv=[59,80,40,12][S[19]||0];b=[bpv,bpv+"%   9d",bpv<=15]}
+  var pct=b[0], lit=Math.trunc((pct+4)/8.34);
   if(lit<1&&pct>0)lit=1;if(lit>12)lit=12;
+  var level=S[18]===1&&S[4]===0;
+  if(level){var lc=pct<=20?2:(pct<=50?1:0),dk=bc>=0?lightTile(bc):ice;
+    accent=(dk?[0x0E8A45,0xB38600,0xC62828]:[0x45CC6E,0xF2C230,0xEF4B42])[lc];if(bc>=0)accent=vis(accent,bc,fg)}
   var style=S[7], gh=sc([18,16,28][style]), capH=sc(18), gap2=sc(17), gy=pd(381)-idiv(gh+gap2+capH,2), capY=gy+gh+gap2+idiv(capH,2);
   var full=pct>100?100:pct;
   function rrect(x,y,w,h,r,stroke){
@@ -315,7 +329,7 @@ function render(S,ctx,dial){
     if(w2>0){if(w2<sc(8))w2=sc(8);setc(b[2]?red:accent);rrect(p(141)+sc(5),gy+sc(5),w2,gh-sc(10),sc(4))}
     pen(1);
   }else{
-    for(i=0;i<12;i++){var xx=p(131+i*16);var segc=accent;if(pal.length>2)segc=bc>=0?vis(pal[Math.min(pal.length-1,idiv(i*pal.length,12))],bc,fgInk):pal[Math.min(pal.length-1,idiv(i*pal.length,12))];
+    for(i=0;i<12;i++){var xx=p(131+i*16);var segc=accent;if(pal.length>2&&!level)segc=bc>=0?vis(pal[Math.min(pal.length-1,idiv(i*pal.length,12))],bc,fg):pal[Math.min(pal.length-1,idiv(i*pal.length,12))];
     setc(i<lit?(b[2]?red:segc):off);
       poly([[xx+sc(6),gy],[xx+sc(16)-1,gy],[xx+sc(10)-1,gy+gh],[xx,gy+gh]])}
   }

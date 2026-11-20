@@ -1,4 +1,4 @@
-/* FaceGrabs banter board widget. Plain JS, no framework, no third-party scripts, no cookies or storage.
+/* FaceGrabs message board widget. Plain JS, no framework, no third-party scripts, no cookies or storage.
    Usage: <div id="fg-banter"></div> plus window.FG_BANTER = { API_BASE, SLUG } before this script.
    All text from the server is inserted with textContent, never innerHTML. */
 (function () {
@@ -76,7 +76,7 @@
     bodyIn.addEventListener("input", function () { counter(bodyIn, count); });
     nickIn.addEventListener("input", function () { S.nick = nickIn.value; });
     form = el("form", { class: "fgb-form", "aria-labelledby": "fgb-form-h", novalidate: true, onsubmit: function (e) { e.preventDefault(); submit(null, nickIn, badgeSel, bodyIn, hp, postBtn, formStatus, count); } }, [
-      el("h3", { id: "fgb-form-h", text: "Join the banter" }),
+      el("h3", { id: "fgb-form-h", text: "Post a message" }),
       el("div", { class: "fgb-row" }, [
         el("div", { class: "fgb-f" }, [el("label", { for: "fgb-nick" }, ["Nickname ", el("span", { class: "fgb-hint", text: "(optional, we suggested one)" })]), el("div", { class: "fgb-nickrow" }, [nickIn, shuffle])]),
         el("div", { class: "fgb-f" }, [el("label", { for: "fgb-badge" }, ["Your stage ", el("span", { class: "fgb-hint", text: "(optional)" })]), badgeSel])
@@ -87,6 +87,9 @@
       formStatus
     ]);
     hp.id = "fgb-hp";
+    var stageF = badgeSel.parentNode; stageF.hidden = true;
+    var addStage = el("button", { type: "button", class: "fgb-link", "aria-expanded": "false", text: "Add a stage (optional)", onclick: function () { stageF.hidden = false; addStage.hidden = true; addStage.setAttribute("aria-expanded", "true"); badgeSel.focus(); } });
+    stageF.parentNode.appendChild(addStage);
   }
   function counter(ta, out) {
     var left = MAX - ta.value.length;
@@ -173,7 +176,7 @@
     if (S.turnstile && window.turnstile) body.cf = turnstileToken();
     api("POST", "/api/messages", body).then(function (r) {
       if (r.ok && r.json.ok) {
-        status(st, "ok", r.json.message || "Thanks!"); bodyEl.value = ""; counter(bodyEl, cnt); btn.disabled = false;
+        status(st, "ok", r.json.message || "Thanks, your message is in!"); bodyEl.value = ""; counter(bodyEl, cnt); btn.disabled = false;
         if (r.json.status === "published") load(true);
       } else if (r.json && r.json.error === "fast" && !retried) {
         setTimeout(function () { submit(parentId, nickEl, badgeEl, bodyEl, hpEl, btn, st, cnt, true); }, 4500);
@@ -214,6 +217,29 @@
       if (!list.children.length) list.appendChild(el("li", { class: "fgb-empty", text: "Nothing here yet. Be the first to say hello!" }));
       if (done) done();
     }, function () { if (!S.loaded) nap(); else live(NAP); if (done) done(); });
+  }
+
+  // ---------- compact mode: latest 3 posts, read only ----------
+  if (CFG.COMPACT) {
+    root.className += " fgb-compact";
+    if (!API || API.indexOf("REPLACE_") !== -1) { root.textContent = NAP; return; }
+    api("GET", "/api/board?slug=" + encodeURIComponent(SLUG) + "&offset=0").then(function (r) {
+      var msgs = (r.ok && r.json.messages) ? r.json.messages.filter(function (m) { return !m.parent_id; }).slice(0, 3) : null;
+      root.textContent = "";
+      if (!msgs) { root.appendChild(el("p", { class: "fgb-empty", text: NAP + " Try again in a little while." })); return; }
+      if (!msgs.length) { root.appendChild(el("p", { class: "fgb-empty", text: "Nothing here yet. Be the first to say hello!" })); return; }
+      var ul = el("ul", { class: "fgb-list", "aria-label": "Latest messages" });
+      msgs.forEach(function (m) {
+        var head = el("div", { class: "fgb-head" }, [el("span", { class: "fgb-nick", text: m.nick })]);
+        if (m.is_crew) head.appendChild(el("span", { class: "fgb-pill crew", text: "crew" }));
+        if (m.badge) head.appendChild(el("span", { class: "fgb-pill", text: m.badge }));
+        head.appendChild(el("span", { class: "fgb-time", text: ago(m.created) }));
+        var t = m.body.length > 150 ? m.body.slice(0, 147).replace(/\s+\S*$/, "") + "..." : m.body;
+        ul.appendChild(el("li", { class: "fgb-msg" }, [head, el("p", { class: "fgb-body", text: t })]));
+      });
+      root.appendChild(ul);
+    }, function () { root.textContent = ""; root.appendChild(el("p", { class: "fgb-empty", text: NAP + " Try again in a little while." })); });
+    return;
   }
 
   // ---------- boot ----------

@@ -79,3 +79,16 @@
   .pm-fig{grid-area:fig}.pm-meet{grid-area:meet}
   .pm-board{grid-area:board;max-height:calc(100vh - 120px);overflow-y:auto;position:sticky;top:76px;padding-right:8px}
 }
+
+/* Home page: hero left, compact message board card right; compact widget */
+.home-top{display:grid;grid-template-columns:1fr;gap:var(--s6);align-items:start}
+.home-top>*{min-width:0}
+.home-hero{grid-template-columns:1fr!important;gap:var(--s4)!important}
+.home-board{border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--stage,#fdfdfc)}
+.home-board h2{margin:0 0 4px;font-size:1.375rem}
+.home-board .fgb{margin-top:var(--s2)}
+.home-board .fgb-msg{padding:12px 0}
+.hb-hi{margin:var(--s2) 0 var(--s2);font-weight:600}
+.hb-actions{margin:0}
+.hb-open{display:flex;justify-content:center;min-height:48px;align-items:center;width:100%}
+@media (min-width:900px){.home-top{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--s8)}.home-board{position:sticky;top:76px}}

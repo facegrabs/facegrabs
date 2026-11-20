@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://facegrabs.github.io/facegrabs/img/brand-og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<link rel="stylesheet" href="style.css?v=32">
+<link rel="stylesheet" href="style.css?v=32"><link rel="stylesheet" href="banter.css?v=2">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="FaceGrabs: Garmin watch faces for round AMOLED and color-screen watches">
 <meta name="twitter:description" content="FaceGrabs makes Garmin watch faces for round AMOLED and color-screen watches: FORGED, Steady, Output and Slab, with a free Pea-k Performance watch face in review with Garmin, coming soon.">
@@ -30,27 +30,26 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site"><div class="wrap bar">
 <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="img/brand-mark.png 1x, img/brand-mark@2x.png 2x"><img src="img/brand-mark-steel.png" srcset="img/brand-mark-steel.png 1x, img/brand-mark-steel@2x.png 2x" alt="" width="72" height="26"></picture>FaceGrabs</a>
-<nav aria-label="Main"><a href="pea-k-performance.html">Pea-k</a><a href="forged.html">FORGED</a><a href="steady.html">Steady</a><a href="output.html">Output</a><a href="slab-pro.html">Slab</a><a href="peast-mode.html">Banter</a><a href="in-development.html">In development</a><a href="index.html#suggest">Suggest a feature</a><a href="about.html">About</a></nav>
+<nav aria-label="Main"><a href="pea-k-performance.html">Pea-k</a><a href="forged.html">FORGED</a><a href="steady.html">Steady</a><a href="output.html">Output</a><a href="slab-pro.html">Slab</a><a href="peast-mode.html">Message board</a><a href="in-development.html">In development</a><a href="index.html#suggest">Suggest a feature</a><a href="about.html">About</a></nav>
 </div></header>
 <main id="main">
-<section class="hero hero-peak f-peak"><div class="wrap">
-<div class="peak-grid"><div class="hero-copy">
+<section class="hero hero-peak f-peak"><div class="wrap"><div class="home-top"><div class="peak-grid home-hero"><div class="hero-copy">
 <p class="eyebrow">New from FaceGrabs</p>
 <h1>Keep him happy, keep him healthy, keep him active.</h1>
 <p class="sub">A free Garmin watch face. In review with Garmin, coming soon.</p>
-<p class="row"><a class="btn primary" href="pea-k-performance.html">Meet Pea-k</a><a class="btn" href="peast-mode.html">Join the banter</a></p>
+<p class="row"><a class="btn primary" href="pea-k-performance.html">Meet Pea-k</a><a class="btn" href="peast-mode.html">Message board</a></p>
 <p class="small"><a href="in-development.html">In development</a></p></div>
 <figure class="peak-fig"><a href="pea-k-performance.html"><img src="img/peak-hero.jpg" alt="The Pea-k Performance watch face, a small green pea with big gym energy." width="1440" height="720"></a></figure></div>
-</div></section>
-<section class="hero" id="our-faces"><div class="wrap">
-<div class="hero-grid"><div class="hero-copy">
-<h2>Our faces</h2>
-<p class="sub">A watch face is the thing you look at most, so it should be your biggest fan, not a critic. FaceGrabs publishes faces for round AMOLED and color-screen Garmin watches. Each has its own personality and is built around one goal: to be the nudge that gets you to the gym.</p>
-<p class="row"><a class="btn primary" href="#faces">See the faces</a><a class="btn" href="https://www.youtube.com/@facegrabs">Watch on YouTube</a></p></div>
-<figure class="stage hero-fig"><video class="face" autoplay muted loop playsinline preload="metadata" poster="img/steady-watch.jpg" src="img/steady-watch-move.mp4" aria-label="The Steady watch face." width="460" height="602"></video></figure></div>
-<p class="compat"><strong>Works on round AMOLED and color-screen Garmin watches:</strong> fenix 7/8/9 and fenix E, epix 2, Forerunner 70/165/170/255/265/570/955/965/970, Venu 3/4, vivoactive 5/6, Enduro 3/4, MARQ 2/3, D2 Mach 1/2, Approach S70, Instinct 3 AMOLED.</p>
-</div></section>
-<section class="wrap" id="faces"><div class="shead"><p class="eyebrow">01 Faces</p><h2>A different way to look at your watch</h2><p class="note">Four faces on the store today, each with a different idea about what a watch face should do.</p></div><div class="grid featured">
+<aside class="home-board" aria-labelledby="hb-h"><h2 id="hb-h">Message board</h2>
+<p class="small">Fresh from the Pea-st Mode crew and friends.</p>
+<div id="fg-banter"></div>
+<script>window.FG_BANTER={API_BASE:"https://fg-banter.facegrabs-dev.workers.dev",SLUG:"peast-mode",EMAIL:"facegrabs.dev@gmail.com",COMPACT:true};</script>
+<script src="banter.js?v=2" defer></script>
+<noscript><p>The board needs JavaScript. You can also <a href="mailto:facegrabs.dev@gmail.com">email us</a>.</p></noscript>
+<p class="hb-hi">Say hi: tell us your stage or your critter story.</p>
+<p class="hb-actions"><a class="btn primary hb-open" href="peast-mode.html#board">Open the message board</a></p></aside></div></div></section>
+<section class="wrap" id="faces"><div class="shead"><p class="eyebrow">01 Faces</p><h2>A different way to look at your watch</h2><p class="note">A watch face is the thing you look at most, so it should be your biggest fan, not a critic. Four faces on the store today. <a href="https://www.youtube.com/@facegrabs">Watch on YouTube</a></p></div>
+<p class="compat"><strong>Works on round AMOLED and color-screen Garmin watches:</strong> fenix 7/8/9 and fenix E, epix 2, Forerunner 70/165/170/255/265/570/955/965/970, Venu 3/4, vivoactive 5/6, Enduro 3/4, MARQ 2/3, D2 Mach 1/2, Approach S70, Instinct 3 AMOLED.</p><div class="grid featured">
 <article class="card f-steady">
 <a href="steady.html" class="cimg"><span class="stage"><video class="face" autoplay muted loop playsinline preload="metadata" poster="img/steady-watch.jpg" src="img/steady-watch-move.mp4" aria-label="The Steady watch face." width="460" height="602"></video></span></a>
 <div class="cbody"><h3><a href="steady.html">Steady</a></h3><p class="line">Your journey isn't a straight line.</p><p>Rest without the guilt. One ring scored on a rolling 7-day average, so a rest day does not read as a failure. Pick your Level, Beginner, Intermediate or Expert, so nobody gets left behind.</p>

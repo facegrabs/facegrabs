@@ -269,4 +269,4 @@ img[data-zoom]{cursor:zoom-in}
 .lightbox .lb-close:focus-visible{outline:2px solid #fff;outline-offset:2px}
 
 /* video and forms picture side by side at the same height */
-@media (min-width:720px){.media-row.balanced{display:grid;grid-template-columns:1fr 2fr;gap:var(--sp-5);align-items:start}.media-row.balanced>figure{margin:0;min-width:0}.media-row.balanced .clip video{width:100%;height:auto;aspect-ratio:1/1}.media-row.balanced .pic img{aspect-ratio:2/1}}
+@media (min-width:720px){.media-row.balanced{display:grid;grid-template-columns:1fr 2fr;gap:var(--sp-5);align-items:start;max-width:845px}.media-row.balanced>figure{margin:0;min-width:0}.media-row.balanced .clip video{width:100%;height:auto;aspect-ratio:1/1}.media-row.balanced .pic img{aspect-ratio:2/1}}

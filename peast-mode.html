@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://facegrabs.github.io/facegrabs/peast-mode.html">
 <meta property="og:image" content="https://facegrabs.github.io/facegrabs/img/peast-hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="style.css?v=32">
+<link rel="stylesheet" href="style.css?v=32"><link rel="stylesheet" href="banter.css?v=1">
 </head>
 <body class="">
 <a class="skip" href="#main">Skip to content</a>
@@ -29,40 +29,25 @@
 <article class="wrap face"><header class="phead"><p class="crumb"><a href="index.html">FaceGrabs</a> / Banter</p>
 <h1>Peast Mode banter</h1><p class="line">Get a little green critter to Pea-st Mode, then come brag about it.</p>
 </header><div class="layout"><div class="col"><figure class="stage print"><img src="img/peast-hero.jpg" alt="The Pea-k Performance critter, a small green pea with big gym energy." width="1200" height="600"></figure>
-<section class="sec rv"><h2>Meet the critter</h2><div class="sec-body"><p class="lead">Pea-k Performance is a free Garmin watch face where a little green critter grows as you train. He starts in a pea pod, then goes through Wilting, Perky, Plump, Fit, Toned, Strong and Jacked, all the way to Pea-st Mode.</p><p>It is just submitted and still in review, so there is no store link yet. The board is open for the first curious ones anyway.</p></div></section>
-<section class="sec rv"><h2>The board</h2><div class="sec-body"><p>Tell us what stage you are at, what weird thing your critter did, and which excuse he forgave this week. Some of his moves are secret on purpose. This is the place to find them and brag, so no spoilers please unless you hide them behind a warning.</p><p class="small">Posting needs a free GitHub account, because the board runs on GitHub Discussions. You can read it without one. Angry posts are welcome too. Be kind to each other and we will all get along.</p>
-<div id="board"><div id="board-soon" hidden><p><strong>The board opens soon.</strong> We are setting up the last bits. Check back shortly, or <a href="mailto:facegrabs.dev@gmail.com">email us</a> your first banter and we will pop it on the board.</p></div></div>
+<section class="sec rv"><h2>Meet the critter</h2><div class="sec-body"><p class="lead">Pea-k Performance is a free Garmin watch face where a little green critter grows as you train. He starts in a pea pod, then goes through Wilting, Perky, Plump, Fit, Toned, Strong and Jacked, all the way to Pea-st Mode.</p><p>It is just submitted and still in review, so there is no store link yet. The board is open for the first curious ones.<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="1.1em" height="1.1em" style="vertical-align:-0.2em;margin-left:0.25em" fill="none" stroke="#3f9a54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V11"/><path d="M12 11C12 7 9 5 5 5c0 4 2 6 7 6z"/><path d="M12 13c0-3 2-5 6-5 0 4-2 6-6 6z"/></svg></p></div></section>
+<section class="sec rv"><h2>The board</h2><div class="sec-body">
+<p>Tell us what stage you are at, what weird thing your critter did, and which excuse he forgave this week. Some of his moves are secret on purpose, so no spoilers please unless you hide them behind a warning.</p>
+<p class="small">No sign-in, no account. Pick a nickname (we suggest a cozy one), say your piece, and you are in. Angry posts are welcome too. Be kind to each other and we will all get along.</p>
+<div id="fg-banter"></div>
 <script>
-(function(){
-  /* Fill these two after enabling Discussions (see SETUP.md). */
-  var REPO_ID = "R_kgDOVySifw";
-  var CATEGORY_ID = "DIC_kwDOVySif84DLmVo";
-  var board = document.getElementById("board");
-  var soon = document.getElementById("board-soon");
-  var ready = REPO_ID.indexOf("REPLACE_") !== 0 && CATEGORY_ID.indexOf("REPLACE_") !== 0;
-  if (!ready) { soon.hidden = false; return; }
-  var s = document.createElement("script");
-  s.src = "https://giscus.app/client.js";
-  s.setAttribute("data-repo", "facegrabs/facegrabs");
-  s.setAttribute("data-repo-id", REPO_ID);
-  s.setAttribute("data-category", "Peast Mode Banter");
-  s.setAttribute("data-category-id", CATEGORY_ID);
-  s.setAttribute("data-mapping", "specific");
-  s.setAttribute("data-term", "Peast Mode Banter");
-  s.setAttribute("data-strict", "0");
-  s.setAttribute("data-reactions-enabled", "1");
-  s.setAttribute("data-emit-metadata", "0");
-  s.setAttribute("data-input-position", "top");
-  s.setAttribute("data-theme", "preferred_color_scheme");
-  s.setAttribute("data-lang", "en");
-  s.setAttribute("crossorigin", "anonymous");
-  s.async = true;
-  board.appendChild(s);
-})();
+  /* The only thing to edit: API_BASE. */
+  window.FG_BANTER = {
+    API_BASE: "https://fg-banter.facegrabs-dev.workers.dev",   /* for example https://facegrabs-banter.yourname.workers.dev  (no trailing slash) */
+    SLUG: "peast-mode",
+    EMAIL: "facegrabs.dev@gmail.com"
+    /* TURNSTILE_SITEKEY: "0x...",   only if you switch Turnstile on, see DEPLOY.md */
+  };
 </script>
-<noscript><p>The board needs JavaScript. You can also <a href="mailto:facegrabs.dev@gmail.com">email us</a>.</p></noscript></div></section>
+<script src="banter.js?v=1" defer></script>
+<noscript><p>The board needs JavaScript. You can also <a href="mailto:facegrabs.dev@gmail.com">email us</a>.</p></noscript>
+</div></section>
 <section class="sec rv"><h2>House rules</h2><div class="sec-body"><ul><li>Be kind. Gym-bro energy, not mean energy.</li><li>Honest feedback is welcome, including the grumpy kind.</li><li>Hide spoilers about secret moves behind a warning, so others get to discover them.</li><li>No spam or selling. Posts that are will be removed.</li></ul></div></section></div>
-<aside class="rail" aria-label="About the board"><div class="rail-in"><div class="rb"><h2>Good to know</h2><p class="small">Posting needs a free GitHub account. Reading does not.</p></div><div class="rb"><h2>More</h2><p class="small"><a href="index.html">Back to all faces</a><br><a href="mailto:facegrabs.dev@gmail.com">Contact</a></p></div></div></aside></div></article>
+<aside class="rail" aria-label="About the board"><div class="rail-in"><div class="rb"><h2>Good to know</h2><p class="small">No sign-in needed. Pick a nickname and post. Your first message gets a quick check.</p></div><div class="rb"><h2>More</h2><p class="small"><a href="index.html">Back to all faces</a><br><a href="mailto:facegrabs.dev@gmail.com">Contact</a></p></div></div></aside></div></article>
 </main>
 <footer class="site"><div class="wrap">
 <div class="fgrid">

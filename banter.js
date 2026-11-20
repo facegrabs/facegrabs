@@ -1,4 +1,4 @@
-/* FaceGrabs banter board widget. Plain JS, no framework, no third-party scripts, no cookies, no storage, no tracking.
+/* FaceGrabs banter board widget. Plain JS, no framework, no third-party scripts, no cookies or storage.
    Usage: <div id="fg-banter"></div> plus window.FG_BANTER = { API_BASE, SLUG } before this script.
    All text from the server is inserted with textContent, never innerHTML. */
 (function () {
@@ -59,7 +59,7 @@
       el("li", { text: "Honest feedback is welcome, grumpy kind included. Aim it at the watch face, never at each other." }),
       el("li", { text: "Hide spoilers about secret moves behind a warning, so others get to discover them." }),
       el("li", { text: "No links, emails, phone numbers or selling. Plain words only, for everyone's safety." }),
-      el("li", { text: "No sign-in. Your first message gets a quick check before it shows, then you are free to chat." })
+      el("li", { text: "Your first message gets a quick check before it shows, then you are free to chat." })
     ])
   ]);
 
@@ -83,7 +83,7 @@
       ]),
       el("div", { class: "fgb-f" }, [el("label", { for: "fgb-body", text: "Your message" }), bodyIn, count]),
       el("div", { class: "fgb-hp", "aria-hidden": "true" }, [el("label", { for: "fgb-hp", text: "Leave this empty" }), hp]),
-      el("div", { class: "fgb-actions" }, [postBtn, el("span", { class: "fgb-hint", text: "No account, no email, no tracking." })]),
+      el("div", { class: "fgb-actions" }, [postBtn]),
       formStatus
     ]);
     hp.id = "fgb-hp";

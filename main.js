@@ -49,3 +49,23 @@
     box.classList.add("is-live"); nav.hidden = false; show(0); tick();
   });
 })();
+
+/* click to enlarge pictures marked with data-zoom */
+(function () {
+  var imgs = document.querySelectorAll("img[data-zoom]");
+  if (!imgs.length || typeof HTMLDialogElement === "undefined") return;
+  var dlg = document.createElement("dialog"); dlg.className = "lightbox"; dlg.setAttribute("aria-label", "Enlarged picture");
+  var big = document.createElement("img"); big.alt = "";
+  var x = document.createElement("button"); x.type = "button"; x.className = "lb-close"; x.textContent = "Close";
+  dlg.appendChild(x); dlg.appendChild(big); document.body.appendChild(dlg);
+  var last = null;
+  function open(img) { last = img; big.src = img.getAttribute("data-zoom"); big.alt = (img.alt || "").replace(/\s*Click to enlarge\.?$/, ""); dlg.showModal(); x.focus(); }
+  imgs.forEach(function (img) {
+    img.setAttribute("tabindex", "0"); img.setAttribute("role", "button");
+    img.addEventListener("click", function () { open(img); });
+    img.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(img); } });
+  });
+  x.addEventListener("click", function () { dlg.close(); });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", function () { if (last) last.focus(); });
+})();

@@ -259,3 +259,11 @@ blockquote cite{display:block;margin-top:var(--sp-1);font-size:var(--fs-small);f
 .shots-nav button{min-height:36px;padding:0 var(--sp-3);border:1px solid var(--line-strong);border-radius:var(--pill);background:var(--surface);color:var(--muted);font:inherit;font-size:var(--fs-small);font-weight:600;cursor:pointer}
 .shots-nav button:hover{border-color:var(--accent);color:var(--accent)}
 .shots-nav button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+
+/* ---------- click to enlarge ---------- */
+img[data-zoom]{cursor:zoom-in}
+.lightbox{border:0;padding:0;background:transparent;max-width:96vw;max-height:96vh;overflow:visible}
+.lightbox::backdrop{background:rgba(8,10,14,.88)}
+.lightbox img{display:block;max-width:96vw;max-height:88vh;width:auto;height:auto;border-radius:var(--radius)}
+.lightbox .lb-close{position:absolute;top:-44px;right:0;min-height:40px;padding:0 16px;border-radius:var(--pill);border:1px solid rgba(255,255,255,.4);background:rgba(20,22,28,.8);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.lightbox .lb-close:focus-visible{outline:2px solid #fff;outline-offset:2px}

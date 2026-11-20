@@ -6,7 +6,7 @@
   var CFG = window.FG_BANTER || {};
   var API = String(CFG.API_BASE || "").replace(/\/+$/, "");
   var SLUG = CFG.SLUG || "peast-mode";
-  var EMAIL = CFG.EMAIL || "facegrabs.dev@gmail.com";
+  var EMAIL = CFG.EMAIL || "hello@facegrabs.com";
   var MAX = 400;
   var root = document.getElementById(CFG.MOUNT_ID || "fg-banter");
   if (!root) return;

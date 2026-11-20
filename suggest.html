@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XR9DSMLQTR"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XR9DSMLQTR");</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggest a feature: tell FaceGrabs what you would like</title>
+<meta name="description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines. We read every one.">
+<link rel="canonical" href="https://facegrabs.com/suggest.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FaceGrabs">
+<meta property="og:title" content="Suggest a feature: tell FaceGrabs what you would like">
+<meta property="og:description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines. We read every one.">
+<meta property="og:url" content="https://facegrabs.com/suggest.html">
+<meta property="og:image" content="https://facegrabs.com/img/brand-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Suggest a feature: tell FaceGrabs what you would like">
+<meta name="twitter:description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines. We read every one.">
+<meta name="twitter:image" content="https://facegrabs.com/img/brand-og.jpg">
+<meta name="twitter:image:alt" content="FaceGrabs Garmin watch faces">
+<meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="style.css?v=40">
+<style>
+.suggest-form{max-width:560px;display:grid;gap:var(--sp-4)}
+.suggest-form label{display:block;font-weight:600;font-size:.9375rem;margin-bottom:6px}
+.suggest-form .opt{font-weight:400;color:var(--muted)}
+.suggest-form textarea,.suggest-form select,.suggest-form input[type=email]{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);padding:12px 14px;min-height:44px}
+.suggest-form textarea{min-height:120px;resize:vertical}
+.suggest-form :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.suggest-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.suggest-form .row{display:flex;gap:var(--sp-3);align-items:center;flex-wrap:wrap}
+.suggest-form .count{margin-left:auto;font-size:.8125rem;color:var(--muted)}
+.suggest-note{min-height:1.5em;font-weight:600}
+.suggest-note.err{color:#b3261e}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap"><a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="img/brand-mark.png 1x, img/brand-mark@2x.png 2x"><img src="img/brand-mark-steel.png" srcset="img/brand-mark-steel.png 1x, img/brand-mark-steel@2x.png 2x" alt="" width="72" height="26"></picture>FaceGrabs</a>
+<nav class="nav" aria-label="Main"><a href="index.html">Home</a><a href="index.html#faces">Faces</a><a href="pea-k-performance.html">Pea-k</a><a href="peast-mode.html">Message board</a><a href="press.html">Press</a><a href="suggest.html" aria-current="page">About</a><a class="nav-cta" href="suggest.html" aria-current="page">Suggest a feature</a></nav></div></header>
+<main id="main">
+<section class="page-head"><div class="wrap">
+<h1>Suggest a feature</h1><p class="tagline">Got an idea? A few lines is plenty. We read every one.</p></div></section>
+<div class="wrap"><section class="section" style="border-top:0">
+<form id="sf" class="suggest-form" novalidate>
+<div><label for="sf-idea">Your idea</label><textarea id="sf-idea" name="idea" maxlength="1000" required aria-describedby="sf-count"></textarea><span class="count" id="sf-count" aria-live="off">0 / 1000</span></div>
+<div><label for="sf-cat">Which face? <span class="opt">(optional)</span></label><select id="sf-cat" name="cat"><option value="">Not sure / any</option><option>Pea-k Performance</option><option>Steady</option><option>Output</option><option>FORGED</option><option>Slab</option><option>Something new</option><option>Something else</option></select></div>
+<div><label for="sf-mail">Your email <span class="opt">(optional, only so we can reply)</span></label><input id="sf-mail" name="contact" type="email" autocomplete="email" maxlength="120"></div>
+<div class="hp" aria-hidden="true"><label>Leave this empty <input id="sf-hp" name="hp" tabindex="-1" autocomplete="off"></label></div>
+<div class="row"><button class="btn primary" id="sf-go" type="submit">Send idea</button><p class="suggest-note" id="sf-note" role="status" aria-live="polite"></p></div>
+</form>
+<noscript><p class="small">This form needs JavaScript. You can also email <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a>.</p></noscript>
+</section></div>
+</main>
+<script>
+(function(){
+var API="https://fg-banter.facegrabs-dev.workers.dev",ft="",f=document.getElementById("sf"),note=document.getElementById("sf-note"),go=document.getElementById("sf-go"),idea=document.getElementById("sf-idea"),cnt=document.getElementById("sf-count");
+function say(t,e){note.textContent=t;note.className="suggest-note"+(e?" err":"");}
+function token(){return fetch(API+"/api/board?slug=peast-mode").then(function(r){return r.json();}).then(function(j){ft=j.ft||"";}).catch(function(){ft="";});}
+token();
+idea.addEventListener("input",function(){cnt.textContent=idea.value.length+" / 1000";});
+f.addEventListener("submit",function(ev){
+ev.preventDefault();
+if(idea.value.trim().length<5){say("Say a little more, even a few words is plenty.",true);idea.focus();return;}
+go.disabled=true;say("Sending...");
+var send=function(){return fetch(API+"/api/suggest",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({idea:idea.value,cat:document.getElementById("sf-cat").value,contact:document.getElementById("sf-mail").value.trim(),hp:document.getElementById("sf-hp").value,ft:ft})}).then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});});};
+(ft?Promise.resolve():token()).then(function(){return new Promise(function(res){setTimeout(res,ft?0:0);});}).then(send).then(function(x){
+if(x.ok){f.reset();cnt.textContent="0 / 1000";say(x.j.message||"Thanks! We read every idea.");token();}
+else{say(x.j.message||"Could not send that just now. Please try again.",true);if(x.j.error==="fast"||x.j.error==="form")token();}
+go.disabled=false;}).catch(function(){say("Could not reach us just now. Please try again in a bit.",true);go.disabled=false;});
+});
+})();
+</script>
+
+<footer class="site-footer"><div class="wrap"><div class="foot">
+<div><p>FaceGrabs makes Garmin watch faces for round AMOLED and color-screen watches. We are all on the same journey, just at different stages.</p><p><a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a></p></div>
+<div><h2>Faces</h2><ul><li><a href="pea-k-performance.html">Pea-k</a></li><li><a href="steady.html">Steady</a></li><li><a href="output.html">Output</a></li><li><a href="forged.html">FORGED</a></li><li><a href="slab-pro.html">Slab</a></li><li><a href="builder.html">Build your Slab</a></li></ul></div>
+<div><h2>Guides</h2><ul><li><a href="steady-guide.html">Steady guide</a></li><li><a href="output-guide.html">Output guide</a></li><li><a href="forged-guide.html">FORGED guide</a></li><li><a href="slab-pro-guide.html">Slab guide</a></li></ul></div>
+<div><h2>FaceGrabs</h2><ul><li><a href="about.html">About</a></li><li><a href="press.html">Press</a></li><li><a href="peast-mode.html">Message board</a></li><li><a href="in-development.html">In development</a></li><li><a href="suggest.html">Suggest a feature</a></li><li><a href="https://www.youtube.com/@facegrabs">YouTube</a></li></ul></div>
+</div>
+<p class="copy">&copy; 2026 FaceGrabs. Garmin and Connect IQ are trademarks of Garmin Ltd. This site is independent.</p>
+</div></footer>
+<script src="main.js?v=2"></script>
+</body>
+</html>

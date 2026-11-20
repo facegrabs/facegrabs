@@ -82,7 +82,7 @@
     nickIn = el("input", { type: "text", id: "fgb-nick", maxlength: "24", autocomplete: "off", spellcheck: "false", value: S.nick });
     var shuffle = el("button", { type: "button", class: "fgb-btn fgb-ghost", "aria-label": "Suggest another nickname", text: "Shuffle", onclick: function () { nickIn.value = randNick(); S.nick = nickIn.value; } });
     badgeSel = el("select", { id: "fgb-badge" }, [el("option", { value: "", text: "No stage, just here for the vibes" })].concat(BADGES.map(function (b) { return el("option", { value: b, text: b }); })));
-    bodyIn = el("textarea", { id: "fgb-body", maxlength: String(MAX), rows: "3", required: true, "aria-required": "true", "aria-describedby": "fgb-count", placeholder: "Tell us your stage, your critter story, or cheer someone on." });
+    bodyIn = el("textarea", { id: "fgb-body", maxlength: String(MAX), rows: "3", required: true, "aria-required": "true", "aria-describedby": "fgb-count", placeholder: "Tell us your stage, your Activity Buddy story, or cheer someone on." });
     count = el("p", { class: "fgb-count", id: "fgb-count", text: MAX + " characters left" });
     hp = el("input", { type: "text", name: "website", tabindex: "-1", autocomplete: "off", "aria-hidden": "true" });
     postBtn = el("button", { type: "submit", class: "fgb-btn pri", text: "Post to the board" });

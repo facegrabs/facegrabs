@@ -5,20 +5,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Suggest a feature: tell FaceGrabs what you would like</title>
-<meta name="description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines. We read every one.">
+<meta name="description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines.">
 <link rel="canonical" href="https://facegrabs.com/suggest.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FaceGrabs">
 <meta property="og:title" content="Suggest a feature: tell FaceGrabs what you would like">
-<meta property="og:description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines. We read every one.">
+<meta property="og:description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines.">
 <meta property="og:url" content="https://facegrabs.com/suggest.html">
 <meta property="og:image" content="https://facegrabs.com/img/brand-og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Suggest a feature: tell FaceGrabs what you would like">
-<meta name="twitter:description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines. We read every one.">
+<meta name="twitter:description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines.">
 <meta name="twitter:image" content="https://facegrabs.com/img/brand-og.jpg">
 <meta name="twitter:image:alt" content="FaceGrabs Garmin watch faces">
 <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
@@ -43,7 +43,7 @@
 <nav class="nav" aria-label="Main"><a href="index.html">Home</a><a href="index.html#faces">Faces</a><a href="pea-k-performance.html">Pea-k</a><a href="peast-mode.html">Message board</a><a href="press.html">Press</a><a href="suggest.html" aria-current="page">About</a><a class="nav-cta" href="suggest.html" aria-current="page">Suggest a feature</a></nav></div></header>
 <main id="main">
 <section class="page-head"><div class="wrap">
-<h1>Suggest a feature</h1><p class="tagline">Got an idea? A few lines is plenty. We read every one.</p></div></section>
+<h1>Suggest a feature</h1><p class="tagline">Drop a few lines.</p></div></section>
 <div class="wrap"><section class="section" style="border-top:0">
 <form id="sf" class="suggest-form" novalidate>
 <div><label for="sf-idea">Your idea</label><textarea id="sf-idea" name="idea" maxlength="1000" required aria-describedby="sf-count"></textarea><span class="count" id="sf-count" aria-live="off">0 / 1000</span></div>
@@ -68,7 +68,7 @@ if(idea.value.trim().length<5){say("Say a little more, even a few words is plent
 go.disabled=true;say("Sending...");
 var send=function(){return fetch(API+"/api/suggest",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({idea:idea.value,cat:document.getElementById("sf-cat").value,contact:document.getElementById("sf-mail").value.trim(),hp:document.getElementById("sf-hp").value,ft:ft})}).then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});});};
 (ft?Promise.resolve():token()).then(function(){return new Promise(function(res){setTimeout(res,ft?0:0);});}).then(send).then(function(x){
-if(x.ok){f.reset();cnt.textContent="0 / 1000";say(x.j.message||"Thanks! We read every idea.");token();}
+if(x.ok){f.reset();cnt.textContent="0 / 1000";say("Thanks!");token();}
 else{say(x.j.message||"Could not send that just now. Please try again.",true);if(x.j.error==="fast"||x.j.error==="form")token();}
 go.disabled=false;}).catch(function(){say("Could not reach us just now. Please try again in a bit.",true);go.disabled=false;});
 });

@@ -13,7 +13,21 @@
   root.className = (root.className ? root.className + " " : "") + "fgb";
 
   var BADGES = ["Wilting", "Perky", "Plump", "Fit", "Toned", "Strong", "Jacked", "Pea-st Mode"];
-  var KINDS = [["cheer", "🎉", "Cheer"], ["flex", "💪", "Flex"], ["heart", "💚", "Heart"], ["laugh", "😂", "Laugh"]];
+  var KINDS = [["cheer", "Cheer"], ["flex", "Flex"], ["heart", "Heart"], ["laugh", "Laugh"]];
+  /* simple line icons, drawn in the board's green (CSS currentColor on .fgb-ic) */
+  var ICONS = {
+    cheer: ["M12 3v4", "M12 17v4", "M3 12h4", "M17 12h4", "M5.6 5.6l2.8 2.8", "M15.6 15.6l2.8 2.8", "M5.6 18.4l2.8-2.8", "M15.6 8.4l2.8-2.8"],
+    flex: ["M6.5 7v10", "M3.5 9.5v5", "M17.5 7v10", "M20.5 9.5v5", "M6.5 12h11"],
+    heart: ["M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"],
+    laugh: ["M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z", "M8 14c1 1.6 2.4 2.4 4 2.4s3-.8 4-2.4", "M9 9.5h.01", "M15 9.5h.01"]
+  };
+  function icon(kind) {
+    var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "16"); svg.setAttribute("height", "16");
+    svg.setAttribute("aria-hidden", "true"); svg.setAttribute("focusable", "false"); svg.setAttribute("class", "fgb-ic");
+    ICONS[kind].forEach(function (d) { var p = document.createElementNS(NS, "path"); p.setAttribute("d", d); svg.appendChild(p); });
+    return svg;
+  }
   var ADJ = ["Cozy", "Sunny", "Perky", "Plump", "Mellow", "Jolly", "Zesty", "Snug", "Breezy", "Cheery", "Humble", "Peppy", "Gentle", "Spry", "Merry"];
   var NOUN = ["Leek", "Radish", "Turnip", "Sprout", "Bean", "Fern", "Beet", "Clover", "Pea Pod", "Basil", "Kale", "Acorn", "Sprig", "Gourd", "Chive"];
   var NAP = "The board is taking a nap.";
@@ -52,8 +66,8 @@
   function status(box, kind, text) { box.className = "fgb-status " + kind; box.textContent = text; box.hidden = !text; }
 
   // ---------- static parts ----------
-  var rules = el("section", { class: "fgb-rules", "aria-labelledby": "fgb-rules-h" }, [
-    el("h3", { id: "fgb-rules-h", text: "House rules, short and sweet" }),
+  var rules = el("details", { class: "fgb-rules" }, [
+    el("summary", { text: "House rules" }),
     el("ul", {}, [
       el("li", { text: "Be kind. Happy gym-bro energy only: no loud grunts, no slamming weights, no gallon jugs of water. We are all on the same journey, just at different stages." }),
       el("li", { text: "Honest feedback is welcome, grumpy kind included. Aim it at the watch face, never at each other." }),
@@ -66,9 +80,9 @@
   var nickIn, badgeSel, bodyIn, count, hp, postBtn, formStatus, list, moreBtn, form;
   function buildForm() {
     nickIn = el("input", { type: "text", id: "fgb-nick", maxlength: "24", autocomplete: "off", spellcheck: "false", value: S.nick });
-    var shuffle = el("button", { type: "button", class: "fgb-btn", "aria-label": "Suggest another nickname", text: "Shuffle", onclick: function () { nickIn.value = randNick(); S.nick = nickIn.value; } });
+    var shuffle = el("button", { type: "button", class: "fgb-btn fgb-ghost", "aria-label": "Suggest another nickname", text: "Shuffle", onclick: function () { nickIn.value = randNick(); S.nick = nickIn.value; } });
     badgeSel = el("select", { id: "fgb-badge" }, [el("option", { value: "", text: "No stage, just here for the vibes" })].concat(BADGES.map(function (b) { return el("option", { value: b, text: b }); })));
-    bodyIn = el("textarea", { id: "fgb-body", maxlength: String(MAX), rows: "4", "aria-describedby": "fgb-count", placeholder: "Tell us your stage, your critter story, or cheer someone on." });
+    bodyIn = el("textarea", { id: "fgb-body", maxlength: String(MAX), rows: "3", required: true, "aria-required": "true", "aria-describedby": "fgb-count", placeholder: "Tell us your stage, your critter story, or cheer someone on." });
     count = el("p", { class: "fgb-count", id: "fgb-count", text: MAX + " characters left" });
     hp = el("input", { type: "text", name: "website", tabindex: "-1", autocomplete: "off", "aria-hidden": "true" });
     postBtn = el("button", { type: "submit", class: "fgb-btn pri", text: "Post to the board" });
@@ -76,20 +90,20 @@
     bodyIn.addEventListener("input", function () { counter(bodyIn, count); });
     nickIn.addEventListener("input", function () { S.nick = nickIn.value; });
     form = el("form", { class: "fgb-form", "aria-labelledby": "fgb-form-h", novalidate: true, onsubmit: function (e) { e.preventDefault(); submit(null, nickIn, badgeSel, bodyIn, hp, postBtn, formStatus, count); } }, [
-      el("h3", { id: "fgb-form-h", text: "Post a message" }),
+      el("h3", { id: "fgb-form-h", class: "fgb-sr", text: "Post a message" }),
+      el("div", { class: "fgb-f" }, [el("label", { for: "fgb-body", text: "Your message" }), bodyIn, count]),
       el("div", { class: "fgb-row" }, [
-        el("div", { class: "fgb-f" }, [el("label", { for: "fgb-nick" }, ["Nickname ", el("span", { class: "fgb-hint", text: "(optional, we suggested one)" })]), el("div", { class: "fgb-nickrow" }, [nickIn, shuffle])]),
+        el("div", { class: "fgb-f" }, [el("label", { for: "fgb-nick" }, ["Nickname ", el("span", { class: "fgb-hint", text: "(optional)" })]), el("div", { class: "fgb-nickrow" }, [nickIn, shuffle])]),
         el("div", { class: "fgb-f" }, [el("label", { for: "fgb-badge" }, ["Your stage ", el("span", { class: "fgb-hint", text: "(optional)" })]), badgeSel])
       ]),
-      el("div", { class: "fgb-f" }, [el("label", { for: "fgb-body", text: "Your message" }), bodyIn, count]),
       el("div", { class: "fgb-hp", "aria-hidden": "true" }, [el("label", { for: "fgb-hp", text: "Leave this empty" }), hp]),
       el("div", { class: "fgb-actions" }, [postBtn]),
       formStatus
     ]);
     hp.id = "fgb-hp";
     var stageF = badgeSel.parentNode; stageF.hidden = true;
-    var addStage = el("button", { type: "button", class: "fgb-link", "aria-expanded": "false", text: "Add a stage (optional)", onclick: function () { stageF.hidden = false; addStage.hidden = true; addStage.setAttribute("aria-expanded", "true"); badgeSel.focus(); } });
-    stageF.parentNode.appendChild(addStage);
+    var addStage = el("button", { type: "button", class: "fgb-link", "aria-expanded": "false", text: "Add a stage", onclick: function () { stageF.hidden = false; addStage.hidden = true; addStage.setAttribute("aria-expanded", "true"); badgeSel.focus(); } });
+    form.querySelector(".fgb-actions").appendChild(addStage);
   }
   function counter(ta, out) {
     var left = MAX - ta.value.length;
@@ -99,16 +113,16 @@
   // ---------- messages ----------
   function msgNode(m, isReply) {
     var head = el("div", { class: "fgb-head" }, [el("span", { class: "fgb-nick", text: m.nick })]);
-    if (m.is_crew) head.appendChild(el("span", { class: "fgb-pill crew", text: "crew" }));
+    if (m.is_crew) head.appendChild(el("span", { class: "fgb-crew", text: "Crew" }));
     if (m.badge) head.appendChild(el("span", { class: "fgb-pill", text: m.badge }));
     head.appendChild(el("span", { class: "fgb-time", text: ago(m.created) }));
     var li = el("li", { class: "fgb-msg", id: "fgb-m" + m.id }, [head]);
-    if (m.title) li.appendChild(el(isReply ? "p" : "h4", { class: "fgb-title", text: m.title }));
+    if (m.title) li.appendChild(el("p", { class: "fgb-title", text: m.title }));
     li.appendChild(el("p", { class: "fgb-body", text: m.body }));
     var tools = el("div", { class: "fgb-tools", role: "group", "aria-label": "Reactions and actions for " + m.nick });
     KINDS.forEach(function (k) {
       var n = (m.reactions && m.reactions[k[0]]) || 0;
-      var b = el("button", { type: "button", class: "fgb-r", "aria-pressed": m.mine === k[0] ? "true" : "false", "aria-label": k[2] + (n ? ", " + n : "") + (m.mine === k[0] ? ", you reacted" : "") }, [el("span", { "aria-hidden": "true", text: k[1] }), el("span", { text: n ? String(n) : k[2] })]);
+      var b = el("button", { type: "button", class: "fgb-r", "aria-pressed": m.mine === k[0] ? "true" : "false", "aria-label": k[1] + (n ? ", " + n : "") + (m.mine === k[0] ? ", you reacted" : "") }, [icon(k[0]), el("span", { text: k[1] }), n ? el("span", { class: "fgb-n", text: String(n) }) : null]);
       b.addEventListener("click", function () { react(m, k[0], b); });
       tools.appendChild(b);
     });
@@ -231,7 +245,7 @@
       var ul = el("ul", { class: "fgb-list", "aria-label": "Latest messages" });
       msgs.forEach(function (m) {
         var head = el("div", { class: "fgb-head" }, [el("span", { class: "fgb-nick", text: m.nick })]);
-        if (m.is_crew) head.appendChild(el("span", { class: "fgb-pill crew", text: "crew" }));
+        if (m.is_crew) head.appendChild(el("span", { class: "fgb-crew", text: "Crew" }));
         if (m.badge) head.appendChild(el("span", { class: "fgb-pill", text: m.badge }));
         head.appendChild(el("span", { class: "fgb-time", text: ago(m.created) }));
         var t = m.body.length > 150 ? m.body.slice(0, 147).replace(/\s+\S*$/, "") + "..." : m.body;
@@ -249,6 +263,6 @@
   list = el("ul", { class: "fgb-list", "aria-label": "Messages" });
   moreBtn = el("button", { type: "button", class: "fgb-btn", text: "Show older messages", hidden: true, onclick: function () { load(false); } });
   root.textContent = "";
-  root.appendChild(rules); root.appendChild(form); root.appendChild(liveEl); root.appendChild(list); root.appendChild(moreBtn);
+  root.appendChild(form); root.appendChild(rules); root.appendChild(liveEl); root.appendChild(list); root.appendChild(moreBtn);
   load(true);
 })();

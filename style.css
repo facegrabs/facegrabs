@@ -220,6 +220,7 @@ blockquote cite{display:block;margin-top:var(--sp-1);font-size:var(--fs-small);f
 .home-top>*{min-width:0}
 .home-top .pic{margin-top:var(--sp-6)}
 @media (min-width:900px){.home-top{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--sp-7);align-items:start}}
+@media (min-width:900px){.home-top .board-card{margin-top:2rem}}
 @media (max-width:719px){.home-top{padding-top:var(--sp-6)}}
 
 /* ---------- footer ---------- */

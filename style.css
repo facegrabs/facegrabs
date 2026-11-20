@@ -267,3 +267,6 @@ img[data-zoom]{cursor:zoom-in}
 .lightbox img{display:block;max-width:96vw;max-height:88vh;width:auto;height:auto;border-radius:var(--radius)}
 .lightbox .lb-close{position:absolute;top:-44px;right:0;min-height:40px;padding:0 16px;border-radius:var(--pill);border:1px solid rgba(255,255,255,.4);background:rgba(20,22,28,.8);color:#fff;font:inherit;font-weight:600;cursor:pointer}
 .lightbox .lb-close:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+/* video and forms picture side by side at the same height */
+@media (min-width:720px){.media-row.balanced{display:grid;grid-template-columns:1fr 2fr;gap:var(--sp-5);align-items:start}.media-row.balanced>figure{margin:0;min-width:0}.media-row.balanced .clip video{width:100%;height:auto;aspect-ratio:1/1}.media-row.balanced .pic img{aspect-ratio:2/1}}

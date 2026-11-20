@@ -92,3 +92,8 @@
 .hb-actions{margin:0}
 .hb-open{display:flex;justify-content:center;min-height:48px;align-items:center;width:100%}
 @media (min-width:900px){.home-top{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--s8)}.home-board{position:sticky;top:76px}}
+
+/* v3: stack label above body inside the board and meet blocks */
+.pm-board.sec,.pm-meet.sec{grid-template-columns:minmax(0,1fr);gap:var(--s2);border-top:0;padding-top:0}
+.pm-meet.sec{border-top:1px solid var(--line);padding-top:var(--s4)}
+.pm-board.sec>h2{padding-top:0}

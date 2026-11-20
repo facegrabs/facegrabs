@@ -55,7 +55,7 @@
   var rules = el("section", { class: "fgb-rules", "aria-labelledby": "fgb-rules-h" }, [
     el("h3", { id: "fgb-rules-h", text: "House rules, short and sweet" }),
     el("ul", {}, [
-      el("li", { text: "Be kind. Gym-bro energy, not mean energy. We are all on the same journey, just at different stages." }),
+      el("li", { text: "Be kind. Happy gym-bro energy only: no loud grunts, no slamming weights, no gallon jugs of water. We are all on the same journey, just at different stages." }),
       el("li", { text: "Honest feedback is welcome, grumpy kind included. Aim it at the watch face, never at each other." }),
       el("li", { text: "Hide spoilers about secret moves behind a warning, so others get to discover them." }),
       el("li", { text: "No links, emails, phone numbers or selling. Plain words only, for everyone's safety." }),

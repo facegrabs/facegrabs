@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c2c047e694ac45ce80e1ac590ab43938"}'></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Report a problem | FaceGrabs</title>
+<meta name="description" content="Something wrong with a FaceGrabs watch face or widget? Tell us here and we will fix it.">
+<link rel="canonical" href="https://facegrabs.com/report.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FaceGrabs">
+<meta property="og:title" content="Report a problem | FaceGrabs">
+<meta property="og:description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines.">
+<meta property="og:url" content="https://facegrabs.com/report.html">
+<meta property="og:image" content="https://facegrabs.com/img/brand-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Report a problem | FaceGrabs">
+<meta name="twitter:description" content="Got an idea for a FaceGrabs watch face or a new feature? Send it in a few lines.">
+<meta name="twitter:image" content="https://facegrabs.com/img/brand-og.jpg">
+<meta name="twitter:image:alt" content="FaceGrabs Garmin watch faces">
+<meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="style.css?v=40">
+<style>
+.suggest-form{max-width:560px;display:grid;gap:var(--sp-4)}
+.suggest-form label{display:block;font-weight:600;font-size:.9375rem;margin-bottom:6px}
+.suggest-form .opt{font-weight:400;color:var(--muted)}
+.suggest-form textarea,.suggest-form select,.suggest-form input[type=email],.suggest-form input[type=text]{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);padding:12px 14px;min-height:44px}
+.suggest-form textarea{min-height:120px;resize:vertical}
+.suggest-form :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.suggest-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.suggest-form .row{display:flex;gap:var(--sp-3);align-items:center;flex-wrap:wrap}
+.suggest-form .count{margin-left:auto;font-size:.8125rem;color:var(--muted)}
+.suggest-note{min-height:1.5em;font-weight:600}
+.suggest-note.err{color:#b3261e}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap"><a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="img/brand-mark.png 1x, img/brand-mark@2x.png 2x"><img src="img/brand-mark-steel.png" srcset="img/brand-mark-steel.png 1x, img/brand-mark-steel@2x.png 2x" alt="" width="72" height="26"></picture>FaceGrabs</a>
+<nav class="nav" aria-label="Main"><a href="index.html">Home</a><a href="index.html#faces">Faces</a><a href="pea-k-performance.html">Pea-k</a><a href="peast-mode.html">Message board</a><a href="press.html">Press</a><a href="about.html">About</a><a class="nav-cta" href="suggest.html">Suggest a feature</a></nav></div></header>
+<main id="main">
+<section class="page-head"><div class="wrap">
+<h1>Report a problem</h1><p class="tagline">Something not working? Tell us and we will fix it.</p></div></section>
+<div class="wrap"><section class="section" style="border-top:0">
+<form id="rf" class="suggest-form" novalidate>
+<div><label for="rf-face">Which face or app?</label><select id="rf-face" name="face" required><option value="">Pick one</option><option>Pea-k</option><option>Steady</option><option>Output</option><option>FORGED</option><option>Slab</option><option>Steady Widget</option><option>Output Widget</option><option>Website</option><option>Not sure</option></select></div>
+<div><label for="rf-watch">Your watch <span class="opt">(optional, for example Forerunner 970)</span></label><input id="rf-watch" name="watch" type="text" maxlength="80"></div>
+<div><label for="rf-what">What happened?</label><textarea id="rf-what" name="what" maxlength="2000" required aria-describedby="rf-count" placeholder="What you did, what you expected, and what you saw instead."></textarea><span class="count" id="rf-count" aria-live="off">0 / 2000</span></div>
+<div><label for="rf-mail">Your email <span class="opt">(optional, only so we can tell you when it is fixed)</span></label><input id="rf-mail" name="contact" type="email" autocomplete="email" maxlength="120"></div>
+<div class="hp" aria-hidden="true"><label>Leave this empty <input id="rf-hp" name="hp" tabindex="-1" autocomplete="off"></label></div>
+<div class="row"><button class="btn primary" id="rf-go" type="submit">Send report</button><p class="suggest-note" id="rf-note" role="status" aria-live="polite"></p></div>
+</form>
+<noscript><p class="small">This form needs JavaScript. You can also email <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a>.</p></noscript>
+</section></div>
+</main>
+<script>
+(function(){
+var API="https://fg-banter.facegrabs-dev.workers.dev",ft="",f=document.getElementById("rf"),note=document.getElementById("rf-note"),go=document.getElementById("rf-go"),what=document.getElementById("rf-what"),face=document.getElementById("rf-face"),cnt=document.getElementById("rf-count");
+function say(t,e){note.textContent=t;note.className="suggest-note"+(e?" err":"");}
+function token(){return fetch(API+"/api/board?slug=peast-mode").then(function(r){return r.json();}).then(function(j){ft=j.ft||"";}).catch(function(){ft="";});}
+token();
+what.addEventListener("input",function(){cnt.textContent=what.value.length+" / 2000";});
+f.addEventListener("submit",function(ev){
+ev.preventDefault();
+if(!face.value){say("Pick the face or app from the list.",true);face.focus();return;}
+if(what.value.trim().length<5){say("Tell us a little about what went wrong.",true);what.focus();return;}
+go.disabled=true;say("Sending...");
+var send=function(){return fetch(API+"/api/ticket",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({face:face.value,watch:document.getElementById("rf-watch").value.trim(),what:what.value,contact:document.getElementById("rf-mail").value.trim(),hp:document.getElementById("rf-hp").value,ft:ft})}).then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});});};
+(ft?Promise.resolve():token()).then(send).then(function(x){
+if(x.ok){f.reset();cnt.textContent="0 / 2000";say("Got it. Thanks for telling us.");token();}
+else{say(x.j.message||"Could not send that just now. Please try again.",true);if(x.j.error==="fast"||x.j.error==="form")token();}
+go.disabled=false;}).catch(function(){say("Could not reach us just now. Please try again in a bit.",true);go.disabled=false;});
+});
+})();
+</script>
+
+<footer class="site-footer"><div class="wrap"><div class="foot">
+<div><p><a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a></p></div>
+<div><h2>Faces</h2><ul><li><a href="pea-k-performance.html">Pea-k</a></li><li><a href="steady.html">Steady</a></li><li><a href="output.html">Output</a></li><li><a href="forged.html">FORGED</a></li><li><a href="slab-pro.html">Slab</a></li><li><a href="builder.html">Build your Slab</a></li></ul></div>
+<div><h2>Guides</h2><ul><li><a href="steady-guide.html">Steady guide</a></li><li><a href="output-guide.html">Output guide</a></li><li><a href="forged-guide.html">FORGED guide</a></li><li><a href="slab-pro-guide.html">Slab guide</a></li></ul></div>
+<div><h2>FaceGrabs</h2><ul><li><a href="mailto:hello@facegrabs.com">Contact us</a></li><li><a href="about.html">About</a></li><li><a href="how-we-build.html">How we build</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="press.html">Press</a></li><li><a href="peast-mode.html">Message board</a></li><li><a href="in-development.html">In development</a></li><li><a href="beta.html">Beta Lab</a></li><li><a href="suggest.html">Suggest a feature</a></li><li><a href="report.html">Report a problem</a></li><li><a href="https://www.youtube.com/@facegrabs">YouTube</a></li></ul></div>
+</div>
+<p class="copy">&copy; 2026 FaceGrabs. Garmin and Connect IQ are trademarks of Garmin Ltd. This site is independent.</p>
+</div></footer>
+<script src="main.js?v=2"></script>
+</body>
+</html>

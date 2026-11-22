@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c2c047e694ac45ce80e1ac590ab43938"}'></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polls: tell FaceGrabs what you want next</title>
+<meta name="description" content="Quick polls about Garmin watch faces. Log your choice and see how everyone else voted.">
+<link rel="canonical" href="https://facegrabs.com/polls.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FaceGrabs">
+<meta property="og:title" content="Polls: tell FaceGrabs what you want next">
+<meta property="og:description" content="Quick polls about Garmin watch faces. Log your choice and see how everyone else voted.">
+<meta property="og:url" content="https://facegrabs.com/polls.html">
+<meta property="og:image" content="https://facegrabs.com/img/brand-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Polls: tell FaceGrabs what you want next">
+<meta name="twitter:description" content="Quick polls about Garmin watch faces. Log your choice and see how everyone else voted.">
+<meta name="twitter:image" content="https://facegrabs.com/img/brand-og.jpg">
+<meta name="twitter:image:alt" content="FaceGrabs Garmin watch faces">
+<meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="style.css?v=40">
+<style>
+.poll-grid{display:grid;gap:var(--sp-5);max-width:720px}
+.poll{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:var(--sp-5);box-shadow:var(--shadow);scroll-margin-top:90px}
+.poll:focus{outline:none}
+.poll.hl{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent),var(--shadow)}
+.poll h2{font-size:1.25rem;margin:0 0 var(--sp-2)}
+.poll .hint{color:var(--muted);font-size:.875rem;margin:0 0 var(--sp-3)}
+.opts{display:grid;gap:var(--sp-2);padding:0;margin:0;list-style:none}
+.opt-btn{position:relative;display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3);width:100%;min-height:48px;padding:10px 14px;font:inherit;font-size:1rem;color:var(--ink);text-align:left;background:var(--bg);border:1px solid var(--line-strong);border-radius:var(--radius-sm);cursor:pointer;overflow:hidden}
+.opt-btn:hover:not(:disabled){border-color:var(--accent)}
+.opt-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt-btn:disabled{cursor:default}
+.opt-btn .bar{position:absolute;left:0;top:0;bottom:0;width:0;background:color-mix(in srgb,var(--accent) 16%,transparent);transition:width .5s ease}
+.opt-btn.mine{border-color:var(--accent);font-weight:600}
+.opt-btn.mine .bar{background:color-mix(in srgb,var(--accent) 30%,transparent)}
+.opt-btn span{position:relative}
+.opt-btn .pct{font-variant-numeric:tabular-nums;font-weight:600}
+.poll-note{min-height:1.4em;margin:var(--sp-3) 0 0;font-size:.9375rem;font-weight:600}
+.poll-note.err{color:#b3261e}
+.poll-total{color:var(--muted);font-size:.875rem;margin:var(--sp-3) 0 0}
+.next{margin-top:var(--sp-4);padding-top:var(--sp-4);border-top:1px solid var(--line)}
+.next p{margin:0 0 var(--sp-3)}
+.sub{margin-top:var(--sp-4);display:grid;gap:var(--sp-2);max-width:420px}
+.sub label.t{font-weight:600;font-size:.9375rem}
+.sub input[type=email]{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);padding:10px 14px;min-height:44px}
+.sub .chk{display:flex;gap:10px;align-items:flex-start;font-size:.9375rem}
+.sub .chk input{margin-top:4px;width:18px;height:18px}
+.sub .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.sub :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.beta-row{margin-top:var(--sp-4)}
+.more{margin-top:var(--sp-7);max-width:720px}
+.more h2{font-size:1.15rem}
+.more ul{display:flex;flex-wrap:wrap;gap:var(--sp-2);padding:0;list-style:none}
+.more a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:var(--pill);text-decoration:none;color:var(--ink);font-weight:600}
+.more a:hover{border-color:var(--accent);color:var(--accent)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap"><a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="img/brand-mark.png 1x, img/brand-mark@2x.png 2x"><img src="img/brand-mark-steel.png" srcset="img/brand-mark-steel.png 1x, img/brand-mark-steel@2x.png 2x" alt="" width="72" height="26"></picture>FaceGrabs</a>
+<nav class="nav" aria-label="Main"><a href="index.html">Home</a><a href="index.html#faces">Faces</a><a href="pea-k-performance.html">Pea-k</a><a href="peast-mode.html">Message board</a><a href="polls.html" aria-current="page">Polls</a><a href="press.html">Press</a><a href="about.html">About</a><a class="nav-cta" href="suggest.html">Suggest a feature</a><a class="nav-cta" href="report.html">Report a bug</a></nav></div></header>
+<main id="main">
+<section class="page-head"><div class="wrap">
+<h1>Polls</h1><p class="tagline">Log your choice. See what everyone else picked.</p></div></section>
+<div class="wrap"><section class="section" style="border-top:0">
+<p>These are quick, anonymous polls. Pick an answer, see how everyone voted, and change your mind any time. What you tell us helps decide what we build next.</p>
+<div class="poll-grid" id="polls" aria-live="polite"><p id="loading">Loading the polls...</p></div>
+<noscript><p class="small">The polls need JavaScript. You can also email your pick to <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a>.</p></noscript>
+<div class="more"><h2>More from FaceGrabs</h2>
+<ul><li><a href="pea-k-performance.html">Pea-k</a></li><li><a href="steady.html">Steady</a></li><li><a href="output.html">Output</a></li><li><a href="forged.html">FORGED</a></li><li><a href="slab-pro.html">Slab</a></li></ul></div>
+</section></div>
+</main>
+<script>
+(function(){
+var host=location.hostname,API=(host==="127.0.0.1"||host==="localhost")?location.origin:"https://fg-banter.facegrabs-dev.workers.dev";
+var IDS=["smooth-hand","face-wish","next-style"],box=document.getElementById("polls"),cards={};
+var FACES={"Time big and bold":["Slab","slab-pro.html"],"Most data, smaller time":["Output","output.html"],"Fitness and recovery":["Steady","steady.html"],"Weather and sun":["Slab","slab-pro.html"],"Something fun like a pet":["Pea-k","pea-k-performance.html"]};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function link(href,text,cls){var a=el("a",cls||"btn",text);a.href=href;return a;}
+function api(path,opt){return fetch(API+path,opt).then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});});}
+function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+
+function build(id){
+ var c={id:id,d:null,ft:"",busy:false};
+ c.root=el("article","poll");c.root.id=id;c.root.tabIndex=-1;
+ c.h=el("h2");c.root.appendChild(c.h);
+ c.hint=el("p","hint","Tap an answer to vote.");c.root.appendChild(c.hint);
+ c.list=el("ul","opts");c.root.appendChild(c.list);
+ c.note=el("p","poll-note");c.note.setAttribute("role","status");c.root.appendChild(c.note);
+ c.total=el("p","poll-total");c.root.appendChild(c.total);
+ c.next=el("div","next");c.next.hidden=true;c.root.appendChild(c.next);
+ var b=el("div","beta-row");b.appendChild(link("beta.html","Join the Beta Lab"));c.root.appendChild(b);
+ return c;
+}
+function say(c,t,e){c.note.textContent=t||"";c.note.className="poll-note"+(e?" err":"");}
+function render(c){
+ var d=c.d,voted=d.mine!=null,sum=d.total||0;
+ c.h.textContent=d.question;
+ c.hint.textContent=!d.open?"This poll is closed. Thanks for voting.":(voted?"Thanks for voting. Tap another answer to change your vote.":"Tap an answer to vote.");
+ c.list.textContent="";
+ d.options.forEach(function(o,i){
+  var li=el("li"),b=el("button","opt-btn"+(voted&&d.mine===i?" mine":""));b.type="button";
+  var bar=el("i","bar"),lab=el("span","",o);b.appendChild(bar);b.appendChild(lab);
+  if(voted){var p=sum?Math.round(100*d.counts[i]/sum):0;b.appendChild(el("span","pct",p+"%"));bar.style.width=p+"%";b.setAttribute("aria-label",o+", "+p+" percent"+(d.mine===i?", your vote":""));}
+  b.setAttribute("aria-pressed",voted&&d.mine===i?"true":"false");
+  b.disabled=!d.open||c.busy;
+  b.addEventListener("click",function(){vote(c,i);});
+  li.appendChild(b);c.list.appendChild(li);
+ });
+ c.total.textContent=voted?(sum+(sum===1?" vote so far":" votes so far")):"";
+ renderNext(c);
+}
+function renderNext(c){
+ var d=c.d,n=c.next;
+ if(d.mine==null){n.hidden=true;return;}
+ var key=n.getAttribute("data-k"),k=c.id+":"+d.mine;
+ n.hidden=false;if(key===k)return;
+ n.setAttribute("data-k",k);n.textContent="";
+ var p=el("p"),a;
+ if(c.id==="smooth-hand"){p.textContent="Want to see a smooth hand in action?";a=link("forged.html","See FORGED's smooth hand","btn primary");}
+ else if(c.id==="face-wish"){var f=FACES[d.options[d.mine]]||["Slab","slab-pro.html"];p.textContent="Here is a face that fits your pick.";a=link(f[1],"Take a look at "+f[0],"btn primary");}
+ else{p.textContent="We build what people ask for.";a=link("beta.html","Join the Beta Lab to test it first","btn primary");}
+ n.appendChild(p);n.appendChild(a);
+ n.appendChild(subForm(c));
+}
+function subForm(c){
+ var f=el("form","sub");f.noValidate=true;
+ var t=el("label","t","Want news about new faces? (optional)");t.htmlFor="em-"+c.id;
+ var em=el("input");em.type="email";em.id="em-"+c.id;em.maxLength=120;em.autocomplete="email";em.placeholder="you@example.com";
+ var ch=el("label","chk");var cb=el("input");cb.type="checkbox";cb.checked=false;ch.appendChild(cb);ch.appendChild(el("span","","Yes, email me about new FaceGrabs faces and updates."));
+ var hp=el("div","hp");hp.setAttribute("aria-hidden","true");var hl=el("label","","Leave this empty ");var hi=el("input");hi.tabIndex=-1;hi.autocomplete="off";hl.appendChild(hi);hp.appendChild(hl);
+ var go=el("button","btn","Sign up");go.type="submit";var msg=el("p","poll-note");msg.setAttribute("role","status");
+ [t,em,ch,hp,go,msg].forEach(function(x){f.appendChild(x);});
+ f.addEventListener("submit",function(ev){
+  ev.preventDefault();
+  if(!cb.checked){msg.textContent="Tick the box if you would like emails from us.";msg.className="poll-note err";return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())){msg.textContent="That email does not look right.";msg.className="poll-note err";return;}
+  go.disabled=true;msg.className="poll-note";msg.textContent="Sending...";
+  var send=function(){return api("/api/subscribe",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email:em.value.trim(),consent:cb.checked===true,source:c.id,hp:hi.value,ft:c.ft})});};
+  send().then(function(x){if(!x.ok&&x.j.error==="fast")return wait(4500).then(send);return x;}).then(function(x){
+   if(x.ok){f.textContent="";f.appendChild(el("p","poll-note","Thanks! You are on the list. You can unsubscribe any time by emailing hello@facegrabs.com."));}
+   else{msg.textContent=x.j.message||"Could not sign you up just now.";msg.className="poll-note err";go.disabled=false;}
+  }).catch(function(){msg.textContent="Could not reach us just now. Please try again in a bit.";msg.className="poll-note err";go.disabled=false;});
+ });
+ return f;
+}
+function vote(c,i){
+ if(c.busy||!c.d.open)return;
+ c.busy=true;say(c,"Saving your vote...");render(c);
+ var send=function(){return api("/api/poll/vote",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({id:c.id,option:c.d.options[i],ft:c.ft,hp:""})});};
+ send().then(function(x){if(!x.ok&&x.j.error==="fast")return wait(4500).then(send);return x;}).then(function(x){
+  c.busy=false;
+  if(x.ok){c.d=x.j;say(c,"Vote saved.");}
+  else{say(c,x.j.message||"Could not save that just now. Please try again.",true);if(x.j.error==="form")load(c);}
+  render(c);
+ }).catch(function(){c.busy=false;say(c,"Could not reach us just now. Please try again in a bit.",true);render(c);});
+}
+function load(c){
+ return api("/api/poll?id="+encodeURIComponent(c.id)).then(function(x){
+  if(!x.ok)throw 0;c.ft=x.j.ft||"";c.d=x.j;render(c);
+ });
+}
+function focusHash(){
+ var id=decodeURIComponent((location.hash||"").slice(1)),c=cards[id];
+ Object.keys(cards).forEach(function(k){cards[k].root.classList.toggle("hl",k===id);});
+ if(c){c.root.scrollIntoView({behavior:"smooth",block:"start"});c.root.focus({preventScroll:true});}
+}
+Promise.all(IDS.map(function(id){var c=build(id);cards[id]=c;return load(c).then(function(){return c;}).catch(function(){return null;});})).then(function(cs){
+ box.textContent="";var ok=0;
+ IDS.forEach(function(id,i){if(cs[i]){box.appendChild(cs[i].root);ok++;}});
+ if(!ok)box.appendChild(el("p","","The polls could not load just now. Please try again in a bit."));
+ focusHash();
+});
+window.addEventListener("hashchange",focusHash);
+})();
+</script>
+
+<footer class="site-footer"><div class="wrap"><div class="foot">
+<div><p><a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a></p></div>
+<div><h2>Faces</h2><ul><li><a href="pea-k-performance.html">Pea-k</a></li><li><a href="steady.html">Steady</a></li><li><a href="output.html">Output</a></li><li><a href="forged.html">FORGED</a></li><li><a href="slab-pro.html">Slab</a></li><li><a href="builder.html">Build your Slab</a></li></ul></div>
+<div><h2>Guides</h2><ul><li><a href="steady-guide.html">Steady guide</a></li><li><a href="output-guide.html">Output guide</a></li><li><a href="forged-guide.html">FORGED guide</a></li><li><a href="slab-pro-guide.html">Slab guide</a></li></ul></div>
+<div><h2>FaceGrabs</h2><ul><li><a href="mailto:hello@facegrabs.com">Contact us</a></li><li><a href="about.html">About</a></li><li><a href="how-we-build.html">How we build</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="press.html">Press</a></li><li><a href="peast-mode.html">Message board</a></li><li><a href="in-development.html">In development</a></li><li><a href="beta.html">Beta Lab</a></li><li><a href="suggest.html">Suggest a feature</a></li><li><a href="polls.html">Polls</a></li><li><a href="report.html">Report a problem</a></li><li><a href="https://www.youtube.com/@facegrabs">YouTube</a></li></ul></div>
+</div>
+<p class="copy">&copy; 2026 FaceGrabs. Garmin and Connect IQ are trademarks of Garmin Ltd. This site is independent.</p>
+</div></footer>
+<script src="main.js?v=2"></script>
+</body>
+</html>

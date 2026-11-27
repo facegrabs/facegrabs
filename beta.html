@@ -48,9 +48,39 @@
 <nav class="nav" aria-label="Main"><a href="/">Home</a><a href="/#faces">Faces</a><a href="pea-k-performance.html">Pea-k</a><a href="peast-mode.html">Message board</a><a href="press.html">Press</a><a href="about.html">About</a><a class="nav-cta" href="beta.html" aria-current="page">Apply to the Beta Lab</a><a class="nav-cta" href="report.html">Report a bug</a></nav></div></header>
 <main id="main">
 <section class="page-head"><div class="wrap">
-<h1>FaceGrabs Beta Lab</h1><p class="tagline">100 founding spots. By application only.</p></div></section>
+<h1>Test our new watch face</h1><p class="tagline">Join the FaceGrabs Beta Lab. 100 founding spots, takes under a minute.</p></div></section>
 <div class="wrap">
-<section class="section" style="border-top:0">
+<section class="section" id="join" style="border-top:0">
+<div style="margin:0 0 20px">
+<p><strong>The reality of a small indie shop:</strong> we will never scale without your help.</p>
+<p><strong>Help us get there: join below, wear the new face and tell us what to fix.</strong></p>
+<p>No spam, and we don't sell data. We'd even prefer you set up a testing-only email account.</p>
+</div>
+<ul><li>Try the new face before everyone else</li><li>Tell us what works and what doesn&#39;t</li><li>Your ideas shape what ships</li></ul>
+<form id="bf" class="suggest-form" novalidate>
+<div><label for="bf-mail">Your email</label><input id="bf-mail" type="email" autocomplete="off" maxlength="120" required></div>
+<div><label for="bf-watch">Your Garmin watch</label><select id="bf-watch" required><option value="">Choose your watch</option><option>Forerunner 970</option><option>Forerunner 965</option><option>Forerunner 570 (47 mm)</option><option>fenix 8 AMOLED 47 mm</option><option>fenix 8 Pro 47 mm</option><option>fenix 9 47 mm</option><option>fenix 9 Pro 47 mm</option><option>Venu 3 (45 mm)</option><option>Venu 4 (45 mm)</option><option>epix Pro (Gen 2) 51 mm</option><option>D2 Mach 2</option><option>D2 Mach 2 Pro</option><option>MARQ (Gen 3)</option><option>Approach S72 47 mm</option><option>Other Garmin (tell us which below)</option></select></div>
+<details><summary style="cursor:pointer;padding:6px 0">Tell us more (optional)</summary>
+<div><label for="bf-name">First name or nickname <span class="opt">(optional)</span></label><input id="bf-name" type="text" maxlength="40"></div>
+<div class="checks"><span class="small" style="font-weight:600">What do you do? <span class="opt">(pick any)</span></span>
+<label><input type="checkbox" value="Everyday wear"> Everyday wear</label>
+<label><input type="checkbox" value="Running"> Running</label>
+<label><input type="checkbox" value="Gym and lifting"> Gym and lifting</label>
+<label><input type="checkbox" value="Cycling"> Cycling</label>
+<label><input type="checkbox" value="Hiking and outdoors"> Hiking and outdoors</label>
+<label><input type="checkbox" value="Watch face and design fan"> Watch face and design fan</label>
+<label><input type="checkbox" value="Tech tinkerer"> Tech tinkerer</label></div>
+<div><label for="bf-where">Country and language <span class="opt">(optional)</span></label><input id="bf-where" type="text" maxlength="60" placeholder="For example Germany, German"></div>
+<div><label for="bf-why">What would you love your Garmin to do better? <span class="opt">(optional)</span></label><textarea id="bf-why" maxlength="500"></textarea></div>
+</details>
+<div class="hp" aria-hidden="true"><label>Leave this empty <input id="bf-hp" tabindex="-1" autocomplete="off"></label></div>
+<div class="row"><button class="btn primary" id="bf-go" type="submit">Join the Beta Lab</button><p class="suggest-note" id="bf-note" role="status" aria-live="polite"></p></div>
+<p class="small">Testing now on Forerunner 970, 965, 570; fenix 8 and 9; Venu 3 and 4; epix Pro; D2 Mach 2; MARQ; Approach S72. Other watches are welcome for later.</p>
+<p class="small">See our <a href="privacy.html">privacy policy</a>. Leave any time by emailing <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a>.</p>
+</form>
+<noscript><p class="small">This form needs JavaScript. You can also email <a href="mailto:hello@facegrabs.com?subject=Beta%20Lab">hello@facegrabs.com</a>.</p></noscript>
+</section>
+<section class="section">
 <p>Your Garmin is personal. The way it looks, the information it shows and the way it fits into your day should be, too.</p>
 <p>We are building a worldwide community of Garmin users who want to help shape what we make next. Not a bug-report job. Not a review club. A group of people who enjoy being part of making something better.</p>
 <p><strong>You wear it. You use it. You help shape it.</strong></p>
@@ -77,7 +107,6 @@
 <li>Join a testing round when it suits you. No obligation to test everything.</li>
 <li>Once a product is public, leave an honest rating in the Garmin store if you like.</li>
 </ul>
-<p><strong>Use a testing email.</strong> We would rather you sign up with a testing email than your personal one. We ask for an email, your watch, and anything else you choose to share.</p>
 <p>No programming or athletic background needed. We want honest feedback, not positive reviews. Perks and access never depend on whether or how you rate anything.</p>
 </section>
 <section class="section">
@@ -96,30 +125,7 @@
 </ul>
 <p>For anything except serious cases, we will email you first and give you a chance to sort it out. You can also leave any time by emailing <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a>, and we will delete your details.</p>
 </section>
-<section class="section" id="join">
-<h2>Apply for a founding spot</h2>
-<p>Right now we are testing our newest face on these watches: Forerunner 970, 965 or 570, fenix 8 or 9 (47 mm), Venu 3 or Venu 4 (45 mm), epix Pro 51 mm, D2 Mach 2, MARQ Gen 3 and Approach S72. Other watches are welcome on the list for later.</p>
-<p>Spots are limited and we review every application. All kinds of Garmin users welcome: everyday wearers, runners, cyclists, hikers, gym-goers, watch face fans and tinkerers, anywhere in the world.</p>
-<form id="bf" class="suggest-form" novalidate>
-<div><label for="bf-mail">Your email <span class="opt">(a testing address is best)</span></label><input id="bf-mail" type="email" autocomplete="off" maxlength="120" required aria-describedby="bf-mailnote"><p class="small" id="bf-mailnote">We prefer a separate testing email over your personal one. A spare address you check now and then is perfect.</p></div>
-<div><label for="bf-name">First name or nickname <span class="opt">(optional)</span></label><input id="bf-name" type="text" maxlength="40"></div>
-<div><label for="bf-watch">Your Garmin watch</label><select id="bf-watch" required><option value="">Choose your watch</option><option>Forerunner 970</option><option>Forerunner 965</option><option>Forerunner 570 (47 mm)</option><option>fenix 8 AMOLED 47 mm</option><option>fenix 8 Pro 47 mm</option><option>fenix 9 47 mm</option><option>fenix 9 Pro 47 mm</option><option>Venu 3 (45 mm)</option><option>Venu 4 (45 mm)</option><option>epix Pro (Gen 2) 51 mm</option><option>D2 Mach 2</option><option>D2 Mach 2 Pro</option><option>MARQ (Gen 3)</option><option>Approach S72 47 mm</option><option>Other Garmin (tell us which below)</option></select></div>
-<div class="checks"><span class="small" style="font-weight:600">What do you do? <span class="opt">(pick any)</span></span>
-<label><input type="checkbox" value="Everyday wear"> Everyday wear</label>
-<label><input type="checkbox" value="Running"> Running</label>
-<label><input type="checkbox" value="Gym and lifting"> Gym and lifting</label>
-<label><input type="checkbox" value="Cycling"> Cycling</label>
-<label><input type="checkbox" value="Hiking and outdoors"> Hiking and outdoors</label>
-<label><input type="checkbox" value="Watch face and design fan"> Watch face and design fan</label>
-<label><input type="checkbox" value="Tech tinkerer"> Tech tinkerer</label></div>
-<div><label for="bf-where">Country and language <span class="opt">(optional)</span></label><input id="bf-where" type="text" maxlength="60" placeholder="For example Germany, German"></div>
-<div><label for="bf-why">What would you love your Garmin to do better? <span class="opt">(optional)</span></label><textarea id="bf-why" maxlength="500"></textarea></div>
-<div class="hp" aria-hidden="true"><label>Leave this empty <input id="bf-hp" tabindex="-1" autocomplete="off"></label></div>
-<div class="row"><button class="btn primary" id="bf-go" type="submit">Apply for a founding spot</button><p class="suggest-note" id="bf-note" role="status" aria-live="polite"></p></div>
-<p class="small">See our <a href="privacy.html">privacy policy</a>. Leave any time by emailing <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a>.</p>
-</form>
-<noscript><p class="small">This form needs JavaScript. You can also email <a href="mailto:hello@facegrabs.com?subject=Beta%20Lab">hello@facegrabs.com</a>.</p></noscript>
-</section>
+
 </div>
 </main>
 <script>

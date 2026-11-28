@@ -31,13 +31,13 @@
 <header class="site-header"><div class="wrap"><a class="brand" href="/"><picture><source media="(prefers-color-scheme: dark)" srcset="img/brand-mark.png 1x, img/brand-mark@2x.png 2x"><img src="img/brand-mark-steel.png" srcset="img/brand-mark-steel.png 1x, img/brand-mark-steel@2x.png 2x" alt="" width="72" height="26"></picture>FaceGrabs</a>
 <nav class="nav" aria-label="Main"><a href="/">Home</a><a href="/#faces">Faces</a><a href="pea-k-performance.html">Pea-k</a><a href="peast-mode.html">Message board</a><a href="press.html">Press</a><a href="about.html">About</a><a class="nav-cta" href="suggest.html">Suggest a feature</a><a class="nav-cta" href="report.html">Report a bug</a></nav></div></header>
 <main id="main">
-<section class="page-head"><div class="wrap"><h1>Privacy policy</h1><p class="tagline">Short and plain. Last updated November 25, 2026.</p></div></section>
+<section class="page-head"><div class="wrap"><h1>Privacy policy</h1><p class="tagline">Short and plain. Last updated November 27, 2026.</p></div></section>
 <div class="wrap"><section class="section" style="border-top:0"><div class="prose">
 <h2>The short version</h2>
-<p>Our watch faces and widgets do their work on your watch. They send nothing to FaceGrabs unless you set up Squad Goals in Pea-k Performance, which stores the items listed in the Squad Goals section below. This page explains the small amount of information our website, message board and forms keep. Questions? Email <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a>.</p>
+<p>Our watch faces and widgets do their work on your watch. They send nothing to FaceGrabs unless you set up Squad Goals, Duel or Race Day in Pea-k Performance, which store the items listed in those sections below. This page explains the small amount of information our website, message board and forms keep. Questions? Email <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a>.</p>
 
 <h2>Our watch faces and widgets</h2>
-<p>FaceGrabs faces and widgets, including Pea-k Performance for Garmin and for Wear OS, read your steps and activity on the watch to draw what you see. Other than Squad Goals below, the watch faces do not send this information anywhere. We do not use accounts, ads or trackers in the watch faces.</p>
+<p>FaceGrabs faces and widgets, including Pea-k Performance for Garmin and for Wear OS, read your steps and activity on the watch to draw what you see. Other than Squad Goals, Duel and Race Day below, the watch faces do not send this information anywhere. We do not use accounts, ads or trackers in the watch faces.</p>
 <h2>Squad Goals in Pea-k Performance (optional)</h2>
 <p>Squad Goals is off until you type a squad code or squad name in the Pea-k settings on your phone. Until then the face does not contact FaceGrabs servers. This section covers Pea-k Performance 1.4.1 and later. Earlier versions call it the group climb and send a smaller set of the items below.</p>
 <h3>What is stored on FaceGrabs servers, only if you set up Squad Goals</h3>
@@ -59,10 +59,39 @@
 <li>A squad with no members for 90 days is deleted.</li>
 </ul>
 <h3>Leaving and deleting</h3>
-<p>To leave a squad, clear the squad code in the Pea-k settings on your phone. To delete your data now, turn on "Delete my squad data" in the Pea-k settings. The watch asks the server to delete everything for your player ID and switches the setting back off. This needs your phone connection. If you cannot do that, email <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a> with your squad name.</p>
+<p>To leave a squad, clear the squad code in the Pea-k settings on your phone. To delete your data now, turn on "Delete my server data" in the Pea-k settings (called "Delete my squad data" before version 1.5). The watch asks the server to delete everything for your player ID and switches the setting back off. This needs your phone connection. If you cannot do that, email <a href="mailto:hello@facegrabs.com">hello@facegrabs.com</a> with your squad name.</p>
 <h3>Your progress page</h3>
 <p>The Your progress page on the watch compares your resting heart rate, VO2 max, daily steps and active minutes with your own first week. These numbers are calculated on the watch, and the page needs no squad, phone or internet. "Restart my progress" in the settings starts that baseline again.</p>
 <p>Pea-k is for fun and motivation. It does not diagnose, treat or monitor any condition, and its numbers are not medical advice.</p>
+
+<h2>Duel and Race Day in Pea-k Performance (optional, version 1.5 and later)</h2>
+<p>Both are off until you turn them on in the Pea-k settings in Garmin Connect. They use the same random player ID and token described under Squad Goals, and the same server.</p>
+<h3>Duel: what is stored</h3>
+<ul>
+<li>The duel code, its length, when it starts and ends, and that you are in it.</li>
+<li>Your handle, or a random squad name if you have no handle.</li>
+<li>Your own best: two numbers worked out on your watch from your last 7 days (a movement number and an intensity number).</li>
+<li>One duel score per day of the duel: how your day compared with your own best, from 0 to 150.</li>
+<li>The duel standings the server works out from those scores, to send back to the watches in the duel.</li>
+</ul>
+<p>The people in your duel see your handle or random name, your duel score, and a "resting" mark if your watch has not checked in for 3 days. They do not see your own best or your daily scores.</p>
+<h3>Race Day: what is stored</h3>
+<ul>
+<li>Your race date, sport, distance and goal time (if you set one), and whether the race is paused.</li>
+<li>For this week and last week: your session minutes for that sport, your longest session, and whether a session was at your goal pace. If the watch has no recorded sessions for that sport, your intensity minutes are used instead and the server notes that.</li>
+<li>Your usual weekly minutes and longest session, used to set the starting point of the plan.</li>
+<li>Whether a session on race day covered most of the distance, and whether it beat your goal time.</li>
+<li>The plan and the short summary the server works out and sends back for the watch to show.</li>
+</ul>
+<p>Nobody else sees your race.</p>
+<p>Purpose: to run the duel and its standings, and to work out your race plan. Where: the same Cloudflare Worker and D1 database as Squad Goals.</p>
+<h3>How long it is kept</h3>
+<ul>
+<li>Duel rows are deleted 30 days after the duel ends. Leaving a duel (clearing the code) deletes your days in that duel.</li>
+<li>Race rows are deleted 30 days after the race date, or as soon as you turn Race Day off.</li>
+<li>If your watch does not check in for 90 days, everything the server holds for your player ID is deleted.</li>
+</ul>
+<p>To delete it now, turn on "Delete my server data" in the Pea-k settings. It deletes your Squad Goals, Duel and Race Day data from the server, leaves your squad and duel, and turns Race Day off. Duel and Race Day use your phone's connection to Garmin Connect, about every 30 minutes, the same way Squad Goals does.</p>
 
 <h2>Connecting your Garmin account (optional, if we offer it)</h2>
 <p>Some FaceGrabs features may let you choose to connect your Garmin account so we can use extra health summaries, such as sleep and heart rate variability, that a watch face cannot read by itself. This is off unless you connect. You connect through Garmin's own sign-in and consent screen, and we never see your Garmin password.</p>

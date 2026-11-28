@@ -340,3 +340,14 @@ img[data-zoom]{cursor:zoom-in}
 .finish .watch img{mix-blend-mode:normal}
 .next{margin-top:var(--sp-7)}
 @media (max-width:599px){.mini{grid-template-columns:110px minmax(0,1fr)}}
+/* ---------- centred pictures and captions (2026-11-27) ---------- */
+figcaption,.thumbs a{text-align:center}
+.pic,.clip,.shot,.shotc,.real,.look,.hero-media{width:100%;margin-left:auto;margin-right:auto}
+.shotc.solo{max-width:440px}
+figure>img,figure>video,.look>img{display:block;margin-left:auto;margin-right:auto}
+.media-row.balanced{margin-left:auto;margin-right:auto}
+.look{text-align:center}.look ul{padding-left:0;list-style-position:inside}
+/* round DC3 face: cut the square backdrop off to the dial */
+figure img[src="dc3-dark-hex.jpg"]{clip-path:circle(47.5%);background:transparent;border:0;border-radius:0}
+.media-row>figure:only-child{grid-column:1/-1}
+.thumbs>a:only-child{grid-column:1/-1;width:100%;max-width:320px;margin:0 auto}

@@ -351,3 +351,7 @@ figure>img,figure>video,.look>img{display:block;margin-left:auto;margin-right:au
 figure img[src="dc3-dark-hex.jpg"]{clip-path:circle(47.5%);background:transparent;border:0;border-radius:0}
 .media-row>figure:only-child{grid-column:1/-1}
 .thumbs>a:only-child{grid-column:1/-1;width:100%;max-width:320px;margin:0 auto}
+/* price on its own line, never inside a sentence */
+p.price,.mini p.price{font-size:var(--fs-small);font-weight:650;color:var(--ink);font-variant-numeric:tabular-nums;margin:0 0 8px}
+.also-line{margin:var(--sp-5) 0 var(--sp-1);text-wrap:balance}
+.mini p{text-wrap:balance}
